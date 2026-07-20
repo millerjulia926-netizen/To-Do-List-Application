@@ -1,0 +1,114 @@
+/**
+ * Centralized blue/white theme tokens (WO-02 / REQ-CTTOTA-002).
+ *
+ * This is the stylesheet source of truth for CSS consumers.
+ * Values must stay aligned with src/theme/tokens.js.
+ *
+ * Usage: color: var(--primary-blue); background: var(--surface-white);
+ * See docs/theme-tokens.md for the full developer-facing name list.
+ */
+
+:root,
+body.light-mode {
+  /* Brand / primary */
+  --primary-blue: #1e88e5;
+  --primary-blue-hover: #1565c0;
+  --primary-blue-deep: #183153;
+  --secondary-blue: #0081a7;
+  --accent-blue: #73c0fc;
+  --accent-blue-soft: #99cafb;
+
+  /* Surfaces & backgrounds */
+  --surface-white: #ffffff;
+  --surface-white-muted: #f5f9fc;
+  --surface-glass: rgba(255, 255, 255, 0.45);
+  --surface-card: rgba(255, 255, 255, 0.54);
+  --bg-page-start: #ffffff;
+  --bg-page-end: #99cafb;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Text */
+  --text-on-primary: #ffffff;
+  --text-on-surface: #0d1b2a;
+  --text-primary: #0d1b2a;
+  --text-secondary: #656565;
+  --text-muted: #6c6c6c;
+
+  /* Neutrals */
+  --neutral-50: #f8fafc;
+  --neutral-100: #e8e8e8;
+  --neutral-200: #dfe6e9;
+  --neutral-400: #b1b1b1;
+  --neutral-600: #6c6c6c;
+  --neutral-800: #333333;
+  --neutral-900: #000000;
+
+  /* Borders & focus */
+  --border-muted: rgba(70, 70, 70, 0.87);
+  --border-accent: rgba(255, 255, 255, 0.18);
+  --focus-ring: rgba(1, 110, 225, 0.85);
+
+  /* Semantic */
+  --priority-high: rgba(255, 0, 0, 0.47);
+  --priority-medium: rgba(255, 166, 0, 0.45);
+  --priority-low: rgba(0, 128, 0, 0.47);
+  --priority-done: rgba(8, 0, 255, 0.47);
+  --success-text: #0f5132;
+  --success-bg: #d1e7dd;
+  --success-border: #badbcc;
+  --danger-text: #842029;
+  --danger-bg: #f8d7da;
+  --danger-border: #f5c2c7;
+}
+
+body.dark-mode {
+  /* Brand / primary — blue family only (no legacy purple) */
+  --primary-blue: #4fc3f7;
+  --primary-blue-hover: #29b6f6;
+  --primary-blue-deep: #0d47a1;
+  --secondary-blue: #81d4fa;
+  --accent-blue: #74b9ff;
+  --accent-blue-soft: #90caf9;
+
+  /* Surfaces & backgrounds */
+  --surface-white: #e3f2fd;
+  --surface-white-muted: #1a2332;
+  --surface-glass: rgba(30, 58, 95, 0.45);
+  --surface-card: rgba(13, 27, 42, 0.92);
+  --bg-page-start: #0d1b2a;
+  --bg-page-end: #1b3a5c;
+  --bg-overlay: rgba(1, 1, 1, 0.85);
+
+  /* Text */
+  --text-on-primary: #ffffff;
+  --text-on-surface: #e8f1fa;
+  --text-primary: #f3f7fb;
+  --text-secondary: #b0bec5;
+  --text-muted: #90a4ae;
+
+  /* Neutrals */
+  --neutral-50: #102a43;
+  --neutral-100: #243b53;
+  --neutral-200: #334e68;
+  --neutral-400: #627d98;
+  --neutral-600: #9fb3c8;
+  --neutral-800: #d9e2ec;
+  --neutral-900: #f0f4f8;
+
+  /* Borders & focus */
+  --border-muted: rgba(144, 202, 249, 0.55);
+  --border-accent: rgba(79, 195, 247, 0.65);
+  --focus-ring: rgba(79, 195, 247, 0.85);
+
+  /* Semantic */
+  --priority-high: rgba(255, 82, 82, 0.74);
+  --priority-medium: rgba(255, 167, 38, 0.87);
+  --priority-low: rgba(0, 189, 0, 0.8);
+  --priority-done: rgba(66, 165, 245, 0.9);
+  --success-text: #a3d9b1;
+  --success-bg: #1b4332;
+  --success-border: #2d6a4f;
+  --danger-text: #f5c2c7;
+  --danger-bg: #4a1520;
+  --danger-border: #842029;
+}
