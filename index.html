@@ -49,7 +49,7 @@
     <label class="switch animate__animated  animate__fadeInLeftBig animate__slow  animate__delay-2s"
       style="margin-left: 30px; margin-top: 30px;">
       <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <g fill="#ffd43b">
+          <g fill="currentColor">
             <circle r="5" cy="12" cx="12"></circle>
             <path
               d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z">
@@ -140,12 +140,9 @@
         <!-- priority dropdown list -->
         <select id="priority">
           <option value="" selected disabled hidden>Select Priority</option>
-          <option value="Low" style="background:rgba(84, 211, 0, 0.605); color:rgba(42, 105, 0, 0.395) ;"
-            onfocus="this.size=3">Low</option>
-          <option value="Medium" style="background:rgba(255, 225, 125, 0.788); color: rgba(194, 149, 0, 0.788);"
-            onfocus="this.size=3">Medium</option>
-          <option value="High" style="background:rgba(255, 120, 120, 0.786);color:rgba(191, 0, 0, 0.786);"
-            onfocus="this.size=3">High</option>
+          <option value="Low" onfocus="this.size=3">Low</option>
+          <option value="Medium" onfocus="this.size=3">Medium</option>
+          <option value="High" onfocus="this.size=3">High</option>
         </select>
 
         <!-- date button -->
@@ -220,6 +217,8 @@
 </div>
 </div>
   <!-- loading all external/internal scripts -->
+  <script src="src/theme/tokens.js"></script>
+  <script src="src/theme/theme-provider.js"></script>
   <script src="scroll.js"></script>
   <script src="index.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

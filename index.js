@@ -715,8 +715,12 @@ function enableSubmit(ref, btnID) {
   document.getElementById(btnID).disabled = false;
 }
 
-// Function to toggle between light and dark mode
+// Function to toggle between light and dark mode via ThemeProvider
 function toggleMode() {
+  if (window.ThemeProvider) {
+    ThemeProvider.toggle({ toggleBtn: modeToggleBtn });
+    return;
+  }
   document.body.classList.toggle("dark-mode");
   document.body.classList.toggle("light-mode");
   if (modeToggleBtn.checked === true) {
@@ -937,8 +941,12 @@ document.addEventListener("DOMContentLoaded", function () {
   typeText(headerText, 0);
 });
 
-// Function to handle dark mode preference
+// Function to handle dark mode preference via ThemeProvider
 function themeSwitcher() {
+  if (window.ThemeProvider) {
+    ThemeProvider.init({ toggleBtn: modeToggleBtn });
+    return;
+  }
   if (localStorage.length === 0) {
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     if (prefersDarkScheme.matches) {
