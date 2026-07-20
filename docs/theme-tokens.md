@@ -10,16 +10,6 @@ Centralized palette for the To-Do List app (`REQ-CTTOTA-002`).
 
 Update both when changing a color. Prefer `var(--token-name)` in CSS and `ThemeTokens` in JS — do not add new hardcoded hex/rgb values in components.
 
-## Theming infrastructure (WO-03)
-
-Runtime wiring lives in [`src/theme/theme-provider.js`](../src/theme/theme-provider.js):
-
-- `ThemeProvider.init({ toggleBtn })` — restore mode from storage / system preference and apply tokens
-- `ThemeProvider.setMode("light"|"dark")` — set body classes + CSS variables on `:root`
-- `ThemeProvider.toggle()` — flip mode (used by the existing theme switch)
-
-`style.css` consumes tokens via `var(--token-name)`, so changing a value in `theme-tokens.css` / `tokens.js` propagates without per-component color edits (AC-CTTOTA-002.1).
-
 ## How to use
 
 ```css
