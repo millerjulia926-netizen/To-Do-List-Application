@@ -7,6 +7,11 @@ const editTaskBtn = document.getElementById("editTask");
 const tasksHeading = document.getElementById("heading-tasks");
 const searchBar = document.getElementById("searchBar");
 const modeToggleBtn = document.getElementById("modeToggle");
+const settingsToggleBtn = document.getElementById("settingsToggle");
+const settingsCloseBtn = document.getElementById("settingsClose");
+const settingsPanel = document.getElementById("settingsPanel");
+const settingsBackdrop = document.getElementById("settingsBackdrop");
+const themePaletteSelect = document.getElementById("themePaletteSelect");
 const checkboxes = document.querySelectorAll(".form-check-input");
 let editItem = null;
 const tasksWithPriority = [];
@@ -33,6 +38,18 @@ submitBtn.addEventListener("click", (e) => {
 });
 taskList.addEventListener("click", handleItemClick);
 modeToggleBtn.addEventListener("click", toggleMode);
+if (settingsToggleBtn) {
+  settingsToggleBtn.addEventListener("click", openSettingsPanel);
+}
+if (settingsCloseBtn) {
+  settingsCloseBtn.addEventListener("click", closeSettingsPanel);
+}
+if (settingsBackdrop) {
+  settingsBackdrop.addEventListener("click", closeSettingsPanel);
+}
+if (themePaletteSelect) {
+  themePaletteSelect.addEventListener("change", handleThemePaletteChange);
+}
 checkboxes.forEach((checkbox) => {
   checkbox.addEventListener("change", markAsComplete);
 });
@@ -730,6 +747,28 @@ function toggleMode() {
   }
 }
 
+function openSettingsPanel() {
+  if (!settingsPanel) return;
+  settingsPanel.hidden = false;
+  if (settingsBackdrop) settingsBackdrop.hidden = false;
+  if (settingsToggleBtn) settingsToggleBtn.setAttribute("aria-expanded", "true");
+}
+
+function closeSettingsPanel() {
+  if (!settingsPanel) return;
+  settingsPanel.hidden = true;
+  if (settingsBackdrop) settingsBackdrop.hidden = true;
+  if (settingsToggleBtn) settingsToggleBtn.setAttribute("aria-expanded", "false");
+}
+
+function handleThemePaletteChange() {
+  if (!themePaletteSelect || !window.ThemeProvider) return;
+  ThemeProvider.setPalette(themePaletteSelect.value, {
+    paletteSelect: themePaletteSelect,
+    toggleBtn: modeToggleBtn,
+  });
+}
+
 // Function to clear all tasks
 function clearAllTasks() {
   const taskList = document.getElementById("taskList"); // Replace with your actual task list ID
@@ -944,7 +983,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to handle dark mode preference via ThemeProvider
 function themeSwitcher() {
   if (window.ThemeProvider) {
-    ThemeProvider.init({ toggleBtn: modeToggleBtn });
+    ThemeProvider.init({
+      toggleBtn: modeToggleBtn,
+      paletteSelect: themePaletteSelect,
+    });
     return;
   }
   if (localStorage.length === 0) {

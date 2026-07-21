@@ -1113,6 +1113,110 @@ li {
   color:var(--neutral-800) !important;
 }
 
+/* Settings panel (WO-03) */
+.top-chrome {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.settings-toggle {
+  margin-top: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border-muted);
+  background: var(--surface-glass);
+  color: var(--primary-purple);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.settings-toggle:hover {
+  background: var(--surface-white);
+  border-color: var(--primary-purple);
+}
+
+.settings-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: 1040;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 90vw);
+  height: 100%;
+  z-index: 1050;
+  background: var(--surface-white);
+  border-left: 2px solid var(--border-muted);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+}
+
+.settings-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.settings-panel__header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+}
+
+.settings-panel__close {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.settings-section__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.settings-field__label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.settings-field__select {
+  width: 100%;
+}
+
+.settings-section__hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.dark-mode .settings-panel {
+  background: var(--surface-card);
+  color: var(--text-primary);
+}
+
 /* Theme infrastructure: primary/secondary actions use token purples */
 .btn-dark,
 #dueDate.btn-dark {

@@ -45,7 +45,7 @@
   <div id="lblsuccess" class="message success-message" style="display: none"></div>
   <div id="lblerror" class="message danger-message" style="display: none"></div>
   <!--ThemeMode Switcher-->
-  <div>
+  <div class="top-chrome">
     <label class="switch animate__animated  animate__fadeInLeftBig animate__slow  animate__delay-2s"
       style="margin-left: 30px; margin-top: 30px;">
       <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -64,7 +64,33 @@
       <input type="checkbox" id="modeToggle" class="mode-toggle input" />
       <span class="slider"></span>
     </label>
+
+    <button type="button" id="settingsToggle" class="settings-toggle animate__animated animate__fadeInLeftBig animate__slow animate__delay-2s" title="Settings" aria-expanded="false" aria-controls="settingsPanel">
+      <i class="fas fa-cog"></i>
+    </button>
   </div>
+
+  <!-- Settings panel -->
+  <aside id="settingsPanel" class="settings-panel" hidden aria-labelledby="settingsHeading">
+    <div class="settings-panel__header">
+      <h2 id="settingsHeading">Settings</h2>
+      <button type="button" id="settingsClose" class="settings-panel__close" aria-label="Close settings">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <section class="settings-section">
+      <h3 class="settings-section__title">Appearance</h3>
+      <label class="settings-field" for="themePaletteSelect">
+        <span class="settings-field__label">Theme</span>
+        <select id="themePaletteSelect" class="settings-field__select inputcss">
+          <option value="default">Default</option>
+          <option value="purple-white">Purple/White</option>
+        </select>
+      </label>
+      <p class="settings-section__hint">Changes apply immediately.</p>
+    </section>
+  </aside>
+  <div id="settingsBackdrop" class="settings-backdrop" hidden></div>
 
 
   <!-- Github Icon-->
