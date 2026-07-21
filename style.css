@@ -58,7 +58,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--accent-blue);
+  background-color: var(--accent-purple);
   transition: 0.4s;
   border-radius: 30px;
 }
@@ -135,7 +135,7 @@ html {
 }
 
 .moon svg {
-  fill: var(--accent-blue);
+  fill: var(--accent-purple);
   position: absolute;
   top: 5px;
   left: 5px;
@@ -180,11 +180,11 @@ html {
 }
 
 .input:checked + .slider {
-  background-color: var(--primary-blue-deep);
+  background-color: var(--primary-purple-deep);
 }
 
 .input:focus + .slider {
-  box-shadow: 0 0 1px var(--primary-blue-deep);
+  box-shadow: 0 0 1px var(--primary-purple-deep);
 }
 
 .input:checked + .slider:before {
@@ -262,7 +262,7 @@ body.dark-mode::before {
 
 .light-mode .main {
   background: var(--surface-glass);
-  box-shadow: var(--accent-blue-soft) 3px 3px 6px 0px inset,
+  box-shadow: var(--accent-purple-soft) 3px 3px 6px 0px inset,
     var(--surface-glass) -3px -3px 6px 1px inset;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -616,7 +616,7 @@ body:not(.dark-mode)::-webkit-scrollbar-track {
 }
 
 body:not(.dark-mode)::-webkit-scrollbar-thumb {
-  background-color: var(--accent-blue);
+  background-color: var(--accent-purple);
   border-radius: 10px;
 }
 
@@ -631,7 +631,7 @@ body.dark-mode::-webkit-scrollbar-track {
 }
 
 body.dark-mode::-webkit-scrollbar-thumb {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-purple);
   border-radius: 10px;
 }
 /* Preloader Starts */
@@ -657,10 +657,10 @@ body.dark-mode::-webkit-scrollbar-thumb {
 }
 .writing-loader * {
   position: absolute;
-  color: var(--secondary-blue);
+  color: var(--secondary-purple);
 }
 .writing-loader .file-text {
-  color: var(--secondary-blue);
+  color: var(--secondary-purple);
   opacity: 0;
   animation: fileAppear-1 8s 0s linear infinite;
   position: absolute;
@@ -807,7 +807,7 @@ select option {
   color: var(--neutral-900) ;
 }
 .light-mode #voice-command-button i{
-  color: var(--accent-blue) ;
+  color: var(--accent-purple) ;
 }
 
 
@@ -907,7 +907,7 @@ select option {
   margin-right: 10px;
   border-radius: 20px;
   border-style: none;
-  border: 3px solid var(--primary-blue);
+  border: 3px solid var(--primary-purple);
   transition: 0.3s ease-in;
 }
 #dueDate {
@@ -940,7 +940,7 @@ li {
 }
 
 .titleText {
-  color: var(--accent-blue);
+  color: var(--accent-purple);
 }
 
 .light-mode .footer-down {
@@ -994,7 +994,7 @@ li {
   padding: 0 20px;
   border-style: none;
   background-color: var(--surface-white);
-  border: 3px solid var(--primary-blue);
+  border: 3px solid var(--primary-purple);
   transition: 0.3s ease-in;
 }
 
@@ -1003,33 +1003,33 @@ li {
 }
 
 .dark-mode .btn-outline-dark {
-  color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 .dark-mode .btn-outline-dark:hover {
   color: var(--surface-white);
-  background-color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 
 .dark-mode .btn-dark {
   color: var(--surface-white);
-  background-color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 
 .dark-mode .btn-dark:hover {
   color: var(--surface-white);
-  background-color: var(--primary-blue-hover);
-  border-color: var(--primary-blue-hover);
+  background-color: var(--primary-purple-hover);
+  border-color: var(--primary-purple-hover);
 }
 
 .dark-mode .btn-dark:not(:disabled):not(.disabled).active,
 .dark-mode .btn-dark:not(:disabled):not(.disabled):active,
 .dark-mode .show > .dark-mode .btn-dark.dropdown-toggle {
   color: var(--surface-white);
-  background-color: var(--primary-blue-hover);
-  border-color: var(--primary-blue-hover);
+  background-color: var(--primary-purple-hover);
+  border-color: var(--primary-purple-hover);
 }
 
 .light-mode .custom-confirm,
@@ -1057,29 +1057,29 @@ li {
 }
 
 .light-mode #myDropdown .a1 {
-  background: var(--accent-blue);
+  background: var(--accent-purple);
 }
 .light-mode #myDropdown .a2 {
-  background: var(--primary-blue);
+  background: var(--primary-purple);
 }
 .light-mode #myDropdown .a3 {
-  background: var(--primary-blue-hover);
+  background: var(--primary-purple-hover);
 }
 .light-mode #myDropdown .a4 {
-  background: var(--secondary-blue);
+  background: var(--secondary-purple);
 }
 
 .dark-mode #myDropdown .a1 {
-  background: var(--primary-blue);
+  background: var(--primary-purple);
 }
 .dark-mode #myDropdown .a2 {
-  background: var(--primary-blue-hover);
+  background: var(--primary-purple-hover);
 }
 .dark-mode #myDropdown .a3 {
-  background: var(--primary-blue-deep);
+  background: var(--primary-purple-deep);
 }
 .dark-mode #myDropdown .a4 {
-  background: var(--secondary-blue);
+  background: var(--secondary-purple);
 }
 
 .light-mode #myDropdown {
@@ -1113,45 +1113,45 @@ li {
   color:var(--neutral-800) !important;
 }
 
-/* Theme infrastructure: primary/secondary actions use token blues */
+/* Theme infrastructure: primary/secondary actions use token purples */
 .btn-dark,
 #dueDate.btn-dark {
   color: var(--text-on-primary);
-  background-color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 
 .btn-dark:hover,
 #dueDate.btn-dark:hover {
   color: var(--text-on-primary);
-  background-color: var(--primary-blue-hover);
-  border-color: var(--primary-blue-hover);
+  background-color: var(--primary-purple-hover);
+  border-color: var(--primary-purple-hover);
 }
 
 .btn-outline-primary,
 .btn-outline-success.addbtn,
 #submitBtn.btn-outline-success {
-  color: var(--primary-blue);
+  color: var(--primary-purple);
   background-color: transparent;
-  border-color: var(--primary-blue);
+  border-color: var(--primary-purple);
 }
 
 .btn-outline-primary:hover,
 .btn-outline-success.addbtn:hover,
 #submitBtn.btn-outline-success:hover:not(:disabled) {
   color: var(--text-on-primary);
-  background-color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 
 #submitBtn.btn-outline-success:not(:disabled) {
   color: var(--text-on-primary);
-  background-color: var(--primary-blue);
-  border-color: var(--primary-blue);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }
 
 .sun svg {
-  color: var(--accent-blue);
+  color: var(--accent-purple);
 }
 
 .sun svg g {

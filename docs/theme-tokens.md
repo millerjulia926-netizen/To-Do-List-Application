@@ -1,6 +1,6 @@
-# Blue/white design tokens (WO-02)
+# Purple/white design tokens (WO-02)
 
-Centralized palette for the To-Do List app (`REQ-CTTOTA-002`).  
+Centralized palette for the To-Do List app (`REQ-CTTTPA-002`).  
 **Sources of truth:**
 
 | Layer | Path |
@@ -10,11 +10,28 @@ Centralized palette for the To-Do List app (`REQ-CTTOTA-002`).
 
 Update both when changing a color. Prefer `var(--token-name)` in CSS and `ThemeTokens` in JS — do not add new hardcoded hex/rgb values in components.
 
+## Naming convention
+
+| Pattern | Example | Use |
+|---------|---------|-----|
+| `primary-purple` | `--primary-purple` | Main brand purple for buttons, borders, key chrome |
+| `primary-purple-hover` | `--primary-purple-hover` | Hover / active primary |
+| `primary-purple-deep` | `--primary-purple-deep` | Deep purple accents (e.g. toggle checked) |
+| `secondary-purple` | `--secondary-purple` | Secondary actions / supporting chrome |
+| `accent-purple` | `--accent-purple` | Highlights, icons, accents |
+| `accent-purple-soft` | `--accent-purple-soft` | Soft fills, gradient ends |
+| `surface-white` | `--surface-white` | Solid white / near-white surfaces |
+| `text-on-primary` | `--text-on-primary` | Text on purple buttons/chrome |
+| `neutral-*` | `--neutral-100` … `--neutral-900` | Grayscale ladder |
+| `priority-*` / `success-*` / `danger-*` | `--priority-high` | Semantic status colors |
+
+Primary/secondary buttons should use approved purples with `--text-on-primary` (white).
+
 ## How to use
 
 ```css
 .header {
-  background: var(--primary-blue);
+  background: var(--primary-purple);
   color: var(--text-on-primary);
 }
 
@@ -27,43 +44,41 @@ Update both when changing a color. Prefer `var(--token-name)` in CSS and `ThemeT
 ```js
 // Classic script: ThemeTokens is on window after loading src/theme/tokens.js
 ThemeTokens.applyToElement("light"); // optional runtime apply
-const blue = ThemeTokens.palette["primary-blue"].light;
+const purple = ThemeTokens.palette["primary-purple"].light;
 ```
 
 Light values apply on `:root` / `body.light-mode`. Dark values apply under `body.dark-mode`.
 
-## Token catalog (AC-CTTOTA-002.2)
+## Token catalog (AC-CTTTPA-002.2)
 
 ### Brand & actions
 
-| Token | CSS variable | Role |
-|-------|--------------|------|
-| primary-blue | `--primary-blue` | Primary actions, key chrome |
-| primary-blue-hover | `--primary-blue-hover` | Hover/active primary |
-| primary-blue-deep | `--primary-blue-deep` | Deep navy accents (e.g. toggle checked) |
-| secondary-blue | `--secondary-blue` | Secondary actions / supporting chrome |
-| accent-blue | `--accent-blue` | Highlights, icons, accents |
-| accent-blue-soft | `--accent-blue-soft` | Soft fills, gradient ends |
-
-Primary/secondary buttons should use approved blues with `--text-on-primary` (white / near-white).
+| Token | CSS variable | Light | Dark | Role |
+|-------|--------------|-------|------|------|
+| primary-purple | `--primary-purple` | `#7c3aed` | `#a78bfa` | Primary actions, key chrome |
+| primary-purple-hover | `--primary-purple-hover` | `#6d28d9` | `#8b5cf6` | Hover/active primary |
+| primary-purple-deep | `--primary-purple-deep` | `#4c1d95` | `#2e1065` | Deep purple accents |
+| secondary-purple | `--secondary-purple` | `#9333ea` | `#c084fc` | Secondary actions |
+| accent-purple | `--accent-purple` | `#a78bfa` | `#c4b5fd` | Highlights, icons |
+| accent-purple-soft | `--accent-purple-soft` | `#ddd6fe` | `#6d28d9` | Soft fills, gradient ends |
 
 ### Surfaces & page background
 
-| Token | CSS variable | Role |
-|-------|--------------|------|
-| surface-white | `--surface-white` | Solid white / near-white surfaces |
-| surface-white-muted | `--surface-white-muted` | Subtle panel backgrounds |
-| surface-glass | `--surface-glass` | Frosted main panel |
-| surface-card | `--surface-card` | Cards / elevated panels |
-| bg-page-start | `--bg-page-start` | Page gradient start |
-| bg-page-end | `--bg-page-end` | Page gradient end |
-| bg-overlay | `--bg-overlay` | Modal / confirm overlays |
+| Token | CSS variable | Light | Dark | Role |
+|-------|--------------|-------|------|------|
+| surface-white | `--surface-white` | `#ffffff` | `#f5f3ff` | Solid white surfaces |
+| surface-white-muted | `--surface-white-muted` | `#faf5ff` | `#1e1b4b` | Subtle panel backgrounds |
+| surface-glass | `--surface-glass` | frosted white | purple glass | Frosted main panel |
+| surface-card | `--surface-card` | frosted white | dark purple card | Cards / elevated panels |
+| bg-page-start | `--bg-page-start` | `#ffffff` | `#1e1b4b` | Page gradient start |
+| bg-page-end | `--bg-page-end` | `#ede9fe` | `#4c1d95` | Page gradient end |
+| bg-overlay | `--bg-overlay` | `rgba(0,0,0,0.5)` | `rgba(1,1,1,0.85)` | Modal overlays |
 
 ### Text
 
 | Token | CSS variable | Role |
 |-------|--------------|------|
-| text-on-primary | `--text-on-primary` | Text on blue buttons/chrome |
+| text-on-primary | `--text-on-primary` | Text on purple buttons/chrome |
 | text-on-surface | `--text-on-surface` | Body text on cards |
 | text-primary | `--text-primary` | Default strong text |
 | text-secondary | `--text-secondary` | Supporting copy |
@@ -88,6 +103,6 @@ Primary/secondary buttons should use approved blues with `--text-on-primary` (wh
 
 ## Migration notes
 
-- Legacy **purple** dark-mode accents (`rgb(146, 56, 255)`, etc.) are intentionally **not** represented; dark tokens stay in the blue family.
-- Wiring existing `style.css` rules to these variables is follow-on theming work (WO-03+). Until then, components should adopt tokens as they are touched.
-- After full migration, audits should treat `theme-tokens.css` as the only file allowed to contain raw palette hex/rgb (AC-CTTOTA-002.3).
+- Brand tokens were renamed from `*-blue` to `*-purple` with purple/white values (CTTTPA).
+- Wiring existing `style.css` rules to the new variable names is follow-on theming work (WO-03+).
+- After full migration, audits should treat `theme-tokens.css` as the only file allowed to contain raw palette hex/rgb (AC-CTTTPA-002.3).
