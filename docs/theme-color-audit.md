@@ -1,133 +1,155 @@
 # Theme & color usage audit (WO-01)
 
-**Date:** 2026-07-20  
+**Date:** 2026-07-21  
 **Repository:** `millerjulia926-netizen/To-Do-List-Application`  
 **Work order:** WO-01 — Audit current theme and color usage  
+**Feature:** CTTTPA — change the theme to purple and white  
 **Scanner:** `node scripts/audit-theme-colors.js`
 
 ## Executive summary
 
 | Metric | Result |
 |--------|--------|
-| Files with color literals | `style.css`, `index.html`, `scroll_img.svg` |
-| Total color occurrences | ~141 (after excluding HTML-entity false positives) |
-| Unique color values | ~80+ |
-| CSS custom properties (`--token`) | **None defined, none used** |
-| Centralized token module | **Does not exist** |
-| Theme mechanism today | Class toggles: `light-mode` / `dark-mode` on `body` |
+| Color literal locations | `theme-tokens.css`, `src/theme/tokens.js` only |
+| Hardcoded colors in UI consumers (`style.css`, `index.html`, …) | **0** |
+| Unique hex/rgb values (across token sources) | ~67 |
+| CSS custom properties defined | **38** unique (`--primary-blue`, `--surface-white`, …) |
+| CSS `var(--*)` usages in `style.css` | **~150** |
+| Centralized token module | Yes — CSS + JS (blue/white) |
+| Theme mechanism today | `ThemeProvider` + `body.light-mode` / `body.dark-mode` + `data-theme` |
+| Purple/white palette | **Not present** — brand tokens are still blue-named / blue-valued |
+| Settings → Appearance theme selector | **Not present** |
 
-The app already leans blue/white in light mode, but dark mode and several controls use **purple** accents (`rgb(146, 56, 255)` and related). All colors are hardcoded; there is no shared token surface for WO-02 / WO-03 to extend.
-
-`Brand Guidelines.txt` is **not present** in this repository, so values below are inventoried as-is for the blue/white migration.
+The prior blue/white migration (CTTOTA) already centralized colors into tokens and wired consumers through CSS variables. This audit is the baseline for **purple/white** (CTTTPA): WO-02 should redefine the brand token set; WO-03 should ensure the theming mechanism can apply and toggle that palette (including Settings appearance).
 
 ## Sources scanned
 
 | File | Role | Color findings |
 |------|------|----------------|
-| `style.css` | Primary stylesheet | Vast majority of literals (backgrounds, buttons, borders, priorities, scrollbar, footer) |
-| `index.html` | Markup + inline styles | Theme toggle sun fill `#ffd43b`; priority `<option>` backgrounds/text |
-| `index.js` | Behavior | No meaningful color literals (icons use font-size only) |
-| `scroll.js` | Scroll helper | No colors |
-| `scroll_img.svg` | Icon | `currentColor` only |
+| `theme-tokens.css` | CSS token source of truth | All light + dark literal values (~76) |
+| `src/theme/tokens.js` | JS mirror of the same palette | Same literals (~76); kept in sync with CSS |
+| `src/theme/theme-provider.js` | Runtime light/dark apply | No color literals |
+| `style.css` | Primary stylesheet | **No** hex/rgb; uses `var(--token)` throughout |
+| `index.html` | Markup | Theme toggle uses `currentColor`; Bootstrap utility classes for some buttons |
+| `index.js` | Behavior | Theme via `ThemeProvider`; no color literals |
+| `scroll.js` / `scroll_img.svg` | Helpers / icon | No color literals / `currentColor` |
 
-## Theme tokens today
-
-**None.** Grep for `--*` definitions and `var(--*)` usages returns empty. Theming is entirely selector-based:
-
-- `body` / `.light-mode …` — light blue radial backgrounds, white surfaces
-- `body.dark-mode` / `.dark-mode …` — blue-purple gradient, purple borders/buttons
-
-## Palette inventory by UI surface
-
-### Navigation / chrome / header
-
-| Usage | Values | Notes |
-|-------|--------|-------|
-| Page background (light) | `rgb(255, 255, 255)` → `rgb(153, 202, 251)` radial | Already blue/white leaning |
-| Page background (dark) | `rgba(0, 60, 255, 0.756)`, `rgb(63, 76, 119)`, overlay `rgba(1,1,1,0.9)` | Blue-purple mix |
-| Title text | `#79c5ff` (`.titleText`) | Light blue |
-| Theme switch track | `#73c0fc` / checked `#183153` | Blue / navy |
-| Theme switch thumb | `#e8e8e8` | Neutral |
-| Sun icon fill (HTML) | `#ffd43b` | Yellow accent — legacy |
-| GitHub icon | `black` / `rgb(227, 227, 227)` | Mode-specific |
-
-### Primary / secondary actions (buttons)
-
-| Usage | Values | Notes |
-|-------|--------|-------|
-| Dark-mode outline / solid buttons | `rgb(146, 56, 255)`, hover `rgb(123, 52, 210)`, text `#fff` | **Purple — not blue/white** |
-| Disabled submit (dark) | `#27272790`, `#47474796`, `#f3f1f1` | Neutrals |
-| Light-mode buttons | Bootstrap utility classes (`btn-outline-success`, `btn-outline-primary`) | Framework greens/blues, not app tokens |
-| Voice command button | `#000000` / `#ffffff`, icon `rgb(159, 221, 255)` | High-contrast chrome |
-
-### Surfaces / cards / panels
-
-| Usage | Values | Notes |
-|-------|--------|-------|
-| Main panel (light) | `rgba(255,255,255,0.447)`, inset `rgb(204,219,232)`, border `rgba(255,255,255,0.18)` | Frosted white |
-| Main panel (dark) | `rgba(83,83,83,0.25)`, border/shadow purple `rgba(146,56,255,…)` | Purple accent |
-| Inputs (light) | `rgba(255,255,255,0.536)`, border `rgba(70,70,70,0.873)` | |
-| Inputs (dark) | `rgb(255,255,255)`, border `rgb(146,56,255)` | Purple border |
-| Confirm dialogs | `#fff` / dark `rgb(24,24,24)`, overlay `rgba(0,0,0,0.5)` | |
-| Footer (light) | radial white → `rgb(175, 215, 255)` | Blue/white |
-| Footer (dark) | `rgba(193, 99, 255, 0.25)` | Purple |
-
-### Priority / status / feedback
-
-| Usage | Values | Location |
-|-------|--------|----------|
-| High priority border | red rgba variants | `style.css` task-priority classes |
-| Medium priority border | orange rgba variants | same |
-| Low priority border | green rgba variants | same |
-| Completed border | blue / purple rgba | light vs dark |
-| Priority `<option>` inline styles | green / yellow / red rgba | `index.html` |
-| Success / danger messages | Bootstrap-like greens/reds (`#0f5132`, `#d1e7dd`, … / `#842029`, `#f8d7da`, …) | `style.css` |
-| Filter dropdown chips (light) | `#00bfffd5`, `#0091dfd8`, `#006dcdcc`, `#0075cea5` | Cyan/blue ladder |
-| Filter dropdown chips (dark) | `#8000ffd5`, `#8d00dfd8`, `#8c00cdcc`, `#8d00cea5` | Purple ladder |
-
-### Scrollbar / misc
-
-| Usage | Values |
-|-------|--------|
-| Light scrollbar | track `#dfe6e9` / `#6c6c6c`, thumb `#74b9ff` |
-| Dark scrollbar | track black/white, thumb `rgb(146, 56, 255)` |
-| Preloader accent | `#0081a7` |
-| Checkbox track | `#000` / knob `#fff`, inset `rgba(1, 110, 225)` |
-| Back-to-top button | white + `#6c6c6c` shadow |
-
-## Dominant hardcoded families (migration targets)
-
-These clusters should become named tokens in WO-02 (suggested names align with REQ-CTTOTA-002):
-
-| Family | Example literals | Suggested token direction |
-|--------|------------------|---------------------------|
-| Primary blue | `#73c0fc`, `#74b9ff`, `#79c5ff`, `rgb(153,202,251)`, `#00bfff…` | `primary-blue`, `accent-blue` |
-| Surface white | `#fff`, `rgb(255,255,255)`, frosted whites | `surface-white`, `surface-glass` |
-| Navy / deep blue | `#183153`, `rgba(0,60,255,0.756)`, `rgb(63,76,119)` | `primary-blue-deep`, `bg-dark` |
-| Legacy purple (remove or replace) | `rgb(146,56,255)`, `rgb(123,52,210)`, purple dropdowns | Replace with blue equivalents |
-| Neutrals | `#000`, `#333`, `#6c6c6c`, `#e8e8e8`, `#f1f1f1` | `text-primary`, `border-muted`, etc. |
-| Semantic (priority/alert) | red / orange / green rgba sets | Keep semantic; optionally tokenized |
-
-## Findings & gaps vs blue/white goals
-
-1. **No token layer** — AC-CTTOTA-002.1 / 002.2 cannot be satisfied until a centralized token file exists (WO-02) and consumers reference it (WO-03+).
-2. **Purple dark theme** — Dark mode buttons, borders, scrollbar thumb, footer, and filter chips use purple, conflicting with “blue and white palette” (AC-CTTOTA-001.*).
-3. **Inline HTML colors** — Priority options and theme-toggle SVG bypass CSS; they will not pick up token updates until moved to classes/tokens.
-4. **Bootstrap class colors** — Add/edit buttons rely on Bootstrap outline utilities; not inventoried as hex but still legacy palette surfaces.
-5. **Duplicate light-mode blues** — Several near-equivalent blues (`#73c0fc`, `#74b9ff`, `#79c5ff`, `rgb(153,202,251)`) should collapse into fewer tokens.
-6. **Audit gate for AC-CTTOTA-002.3** — Re-run `node scripts/audit-theme-colors.js --token-file=<centralized-file>` after migration; exit code `1` until hardcoded colors outside the token file reach zero.
-
-## How to re-run
+Re-run anytime:
 
 ```bash
 node scripts/audit-theme-colors.js
 node scripts/audit-theme-colors.js --json
-# After tokens exist:
-node scripts/audit-theme-colors.js --token-file=path/to/tokens.css
+node scripts/audit-theme-colors.js --token-file=theme-tokens.css
 ```
+
+With `--token-file=theme-tokens.css`, the script treats `src/theme/tokens.js` as a paired source (not a consumer violation). Exit code `1` if any other file still has hardcoded colors.
+
+## Theme tokens today (blue/white)
+
+Defined on `:root` / `body.light-mode` and overridden under `body.dark-mode` in `theme-tokens.css` (mirrored in `src/theme/tokens.js`).
+
+### Brand / primary (migration targets → purple)
+
+| Token | Light | Dark | UI role |
+|-------|-------|------|---------|
+| `--primary-blue` | `#1e88e5` | `#4fc3f7` | Primary buttons, borders, accents |
+| `--primary-blue-hover` | `#1565c0` | `#29b6f6` | Hover / active |
+| `--primary-blue-deep` | `#183153` | `#0d47a1` | Deep chrome / switch checked |
+| `--secondary-blue` | `#0081a7` | `#81d4fa` | Secondary accents / preloader |
+| `--accent-blue` | `#73c0fc` | `#74b9ff` | Title, icons, switch track |
+| `--accent-blue-soft` | `#99cafb` | `#90caf9` | Soft accents / shadows |
+
+### Surfaces & page background (keep white family)
+
+| Token | Light | Dark | UI role |
+|-------|-------|------|---------|
+| `--surface-white` | `#ffffff` | `#e3f2fd` | Cards, panels, inputs |
+| `--surface-white-muted` | `#f5f9fc` | `#1a2332` | Muted surfaces |
+| `--surface-glass` / `--surface-card` | frosted whites | blue-tinted glass | Main panel |
+| `--bg-page-start` / `--bg-page-end` | `#ffffff` → `#99cafb` | `#0d1b2a` → `#1b3a5c` | Page / footer radial |
+
+### Text, neutrals, borders, semantic
+
+| Family | Tokens | Notes |
+|--------|--------|-------|
+| Text | `--text-on-primary`, `--text-on-surface`, `--text-primary`, `--text-secondary`, `--text-muted` | Dark navy on light; light text on dark |
+| Neutrals | `--neutral-50` … `--neutral-900` | Scrollbars, shadows, GitHub icon |
+| Borders / focus | `--border-muted`, `--border-accent`, `--focus-ring` | Inputs, glass edges |
+| Priority / alerts | `--priority-*`, `--success-*`, `--danger-*` | Keep semantic; not brand purple |
+
+Full catalog: [`docs/theme-tokens.md`](theme-tokens.md).
+
+## Palette inventory by UI surface
+
+Mapped to acceptance criteria for REQ-CTTTPA-001 (nav, buttons, cards, etc.).
+
+### Navigation / chrome / header
+
+| Surface | Mechanism | Current tokens |
+|---------|-----------|----------------|
+| Page background | `style.css` body gradients | `--bg-page-start`, `--bg-page-end` |
+| Theme switch | `.switch` / `.slider` | `--accent-blue`, `--primary-blue-deep`, `--neutral-100` |
+| Sun/moon icons | `currentColor` in SVG | Inherits text/chrome color |
+| GitHub icon | `.github-icon` | `--neutral-900` / mode neutrals |
+| Title | `.titleText` | `--accent-blue` |
+
+### Primary / secondary actions (buttons)
+
+| Surface | Mechanism | Current tokens / notes |
+|---------|-----------|------------------------|
+| App-themed buttons | `.btn` overrides in `style.css` | `--primary-blue`, `--primary-blue-hover`, `--text-on-primary` |
+| Confirm / add / edit / clear | Bootstrap classes (`btn-outline-success`, `btn-outline-primary`, `btn-outline-danger`, `btn-dark`) | Framework greens/reds/darks — **not** app tokens; still visible default-theme colors (AC-CTTTPA-001.2 gap) |
+| Voice command | `.voice-input` | Uses primary / surface tokens via CSS |
+
+### Surfaces / cards / panels
+
+| Surface | Tokens |
+|---------|--------|
+| Main task panel | `--surface-glass`, `--border-accent`, `--accent-blue-soft` |
+| Inputs / cards | `--surface-card`, `--surface-white`, `--border-muted`, `--primary-blue` |
+| Confirm dialogs | `--surface-white`, `--bg-overlay` |
+| Footer | same page gradient tokens |
+
+### Priority / status / feedback
+
+| Surface | Tokens |
+|---------|--------|
+| Task priority borders | `--priority-high/medium/low/done` |
+| Success / danger messages | `--success-*`, `--danger-*` |
+| Filter dropdown chips | `--primary-blue` ladder / related primary tokens |
+
+## Theme references (runtime)
+
+| Reference | Location | Behavior |
+|-----------|----------|----------|
+| `ThemeTokens` | `src/theme/tokens.js` | Palette map + `applyToElement(mode)` |
+| `ThemeProvider` | `src/theme/theme-provider.js` | Persist `localStorage["dark-mode"]`, set `body.light-mode`/`dark-mode`, `data-theme`, apply tokens |
+| Toggle UI | `#modeToggle` in `index.html` | Light/dark only — **not** a Purple/White vs default selector |
+| Stylesheet link | `index.html` → `theme-tokens.css` then `style.css` | Cascade order established |
+
+No `Settings > Appearance` UI exists yet (REQ-CTTTPA-002).
+
+## Findings & gaps vs purple/white goals
+
+1. **Brand is blue, not purple** — Token names and values (`--primary-blue`, `#1e88e5`, …) must become a purple/white set in WO-02 (e.g. `--primary-purple` or renamed semantic tokens) so AC-CTTTPA-001.* can pass.
+2. **Consumers already inherit tokens** — `style.css` has zero hardcoded hex/rgb; once WO-02 updates token values (and preferably names), most chrome updates without per-component overrides (supports AC-CTTTPA-001.3).
+3. **Bootstrap utility colors remain** — Outline success/primary/danger/dark buttons still show framework greens/blues/reds; need tokenized classes or overrides so no default-theme colors remain (AC-CTTTPA-001.2).
+4. **No Purple/White theme option in Settings** — Only a light/dark switch exists; WO-03 must add Appearance selection and live apply without reload (AC-CTTTPA-002.*).
+5. **Duplicated sources of truth** — `theme-tokens.css` and `src/theme/tokens.js` must stay aligned when purple values are introduced.
+6. **Audit gate** — After WO-02/WO-03, keep `node scripts/audit-theme-colors.js --token-file=theme-tokens.css` green (exit 0).
+
+## Dominant families for WO-02 (suggested direction)
+
+| Family | Current examples | Purple/white direction |
+|--------|------------------|------------------------|
+| Primary brand | `#1e88e5`, `#1565c0`, `#4fc3f7` | Purple primaries + white text on primary |
+| Accent | `#73c0fc`, `#99cafb` | Soft purple / lavender accents |
+| Surfaces | `#ffffff`, frosted whites | Keep white / off-white surfaces |
+| Page gradient end | `#99cafb` / dark blues | Purple-tinted end stops |
+| Semantic priority/alert | red / orange / green | Keep semantic; do not force purple |
 
 ## Out of scope for this work order
 
-- Defining the blue/white token palette (WO-02)
-- Wiring CSS custom properties / replacing literals (later WOs)
-- Changing runtime theme behavior
+- Defining the purple/white token palette (WO-02)
+- Extending the theming mechanism / Appearance selector (WO-03)
+- Replacing Bootstrap button utilities with tokenized styles (follow-on of WO-02/03)
