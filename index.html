@@ -78,11 +78,11 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <section class="settings-section">
+    <section class="settings-section" aria-label="Appearance">
       <h3 class="settings-section__title">Appearance</h3>
       <label class="settings-field" for="themePaletteSelect">
         <span class="settings-field__label">Theme</span>
-        <select id="themePaletteSelect" class="settings-field__select inputcss">
+        <select id="themePaletteSelect" class="settings-field__select inputcss" aria-label="Theme">
           <option value="default">Default</option>
           <option value="purple-white">Purple/White</option>
           <option value="red-white">Red &amp; White</option>
@@ -90,7 +90,7 @@
       </label>
       <label class="settings-field settings-field--toggle" for="highContrastToggle">
         <span class="settings-field__label">High contrast</span>
-        <input type="checkbox" id="highContrastToggle" class="settings-field__checkbox" />
+        <input type="checkbox" id="highContrastToggle" class="settings-field__checkbox" aria-label="High contrast" />
       </label>
       <p class="settings-section__hint">Changes apply immediately. High contrast strengthens red, white, and text contrast (WCAG AA).</p>
     </section>

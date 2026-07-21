@@ -781,6 +781,26 @@ function handleHighContrastChange() {
   });
 }
 
+/** Ensure Appearance theme options include Red & White (AC-MTTCRA-001.1). */
+function ensureThemePaletteOptions() {
+  if (!themePaletteSelect || !window.ThemeProvider) return;
+  const labels = ThemeProvider.PALETTE_LABELS || {};
+  const required = [
+    { value: "default", label: labels.default || "Default" },
+    { value: "purple-white", label: labels["purple-white"] || "Purple/White" },
+    { value: "red-white", label: labels["red-white"] || "Red & White" },
+  ];
+  required.forEach(({ value, label }) => {
+    let option = themePaletteSelect.querySelector(`option[value="${value}"]`);
+    if (!option) {
+      option = document.createElement("option");
+      option.value = value;
+      themePaletteSelect.appendChild(option);
+    }
+    option.textContent = label;
+  });
+}
+
 // Function to clear all tasks
 function clearAllTasks() {
   const taskList = document.getElementById("taskList"); // Replace with your actual task list ID
@@ -995,6 +1015,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to handle dark mode preference via ThemeProvider
 function themeSwitcher() {
   if (window.ThemeProvider) {
+    ensureThemePaletteOptions();
     ThemeProvider.init({
       toggleBtn: modeToggleBtn,
       paletteSelect: themePaletteSelect,
