@@ -1290,7 +1290,7 @@ li {
   color: var(--primary-purple);
 }
 
-/* Theme infrastructure: primary/secondary actions use token purples */
+/* Theme infrastructure: buttons, forms, links, focus (WO-04 / REQ-MTTCRA-002) */
 .btn-dark,
 #dueDate.btn-dark {
   color: var(--text-on-primary);
@@ -1305,9 +1305,18 @@ li {
   border-color: var(--primary-purple-hover);
 }
 
+.btn-dark:focus,
+.btn-dark:focus-visible,
+#dueDate.btn-dark:focus,
+#dueDate.btn-dark:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
 .btn-outline-primary,
 .btn-outline-success.addbtn,
-#submitBtn.btn-outline-success {
+#submitBtn.btn-outline-success,
+.btn-outline-dark {
   color: var(--primary-purple);
   background-color: transparent;
   border-color: var(--primary-purple);
@@ -1315,16 +1324,140 @@ li {
 
 .btn-outline-primary:hover,
 .btn-outline-success.addbtn:hover,
-#submitBtn.btn-outline-success:hover:not(:disabled) {
+#submitBtn.btn-outline-success:hover:not(:disabled),
+.btn-outline-dark:hover {
   color: var(--text-on-primary);
   background-color: var(--primary-purple);
   border-color: var(--primary-purple);
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:focus-visible,
+.btn-outline-success.addbtn:focus,
+.btn-outline-success.addbtn:focus-visible,
+#submitBtn.btn-outline-success:focus:not(:disabled),
+.btn-outline-dark:focus,
+.btn-outline-dark:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 #submitBtn.btn-outline-success:not(:disabled) {
   color: var(--text-on-primary);
   background-color: var(--primary-purple);
   border-color: var(--primary-purple);
+}
+
+#submitBtn.btn-outline-success:not(:disabled):hover {
+  background-color: var(--primary-purple-hover);
+  border-color: var(--primary-purple-hover);
+}
+
+.btn-outline-danger,
+.clear_btn.btn-outline-danger {
+  color: var(--danger-text);
+  border-color: var(--danger-border);
+  background-color: transparent;
+}
+
+.btn-outline-danger:hover,
+.clear_btn.btn-outline-danger:hover {
+  color: var(--text-on-primary);
+  background-color: var(--danger-text);
+  border-color: var(--danger-text);
+}
+
+.btn-outline-secondary.edit,
+.list-group-item .btn-outline-success {
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+.btn-outline-secondary.edit:hover,
+.list-group-item .btn-outline-success:hover {
+  color: var(--text-on-primary);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+a,
+.dropdown-content a {
+  color: var(--primary-purple);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--primary-purple-hover);
+}
+
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  background-color: var(--accent-purple-soft);
+  color: var(--text-on-surface);
+}
+
+.light-mode .inputcss,
+.dark-mode .inputcss,
+#description.inputcss,
+#searchBar.inputcss,
+#priority {
+  border-color: var(--border-muted);
+  color: var(--text-primary);
+  background-color: var(--surface-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.light-mode .inputcss:hover,
+.dark-mode .inputcss:hover,
+#description.inputcss:hover,
+#searchBar.inputcss:hover,
+#priority:hover {
+  border-color: var(--primary-purple);
+}
+
+.light-mode .inputcss:focus,
+.dark-mode .inputcss:focus,
+#description.inputcss:focus,
+#searchBar.inputcss:focus,
+#priority:focus,
+#item:focus,
+#dueDate:focus {
+  outline: none;
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.dark-mode #priority {
+  border: 2px solid var(--primary-purple);
+  background-color: var(--surface-white-muted);
+  color: var(--text-primary);
+}
+
+.list-group-item.card {
+  background-color: var(--surface-card);
+  border-color: var(--border-muted);
+  color: var(--text-on-surface);
+}
+
+.confirm-content,
+.confirm-content-all {
+  background-color: var(--surface-white);
+  border: 2px solid var(--border-muted);
+  color: var(--text-primary);
+}
+
+.confirm-content .btn,
+.confirm-content-all .btn {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#voice-command-button:focus,
+#voice-command-button:focus-visible,
+.settings-toggle:focus,
+.settings-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .sun svg {
@@ -1349,4 +1482,5 @@ li {
   background: var(--priority-high);
   color: var(--text-on-surface);
 }
+
 
