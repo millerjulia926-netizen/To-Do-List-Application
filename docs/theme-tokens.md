@@ -49,6 +49,23 @@ const purple = ThemeTokens.palette["primary-purple"].light;
 
 Light values apply on `:root` / `body.light-mode`. Dark values apply under `body.dark-mode`.
 
+## Theming mechanism (WO-03)
+
+| Piece | Path | Role |
+|-------|------|------|
+| Token CSS | `theme-tokens.css` | Default palette on `:root`; purple/white overrides under `html[data-theme-palette="purple-white"]` |
+| JS tokens | `src/theme/tokens.js` | Purple/white values for runtime `applyToElement` |
+| Provider | `src/theme/theme-provider.js` | Persists palette + mode; sets `data-theme-palette` and `data-theme` |
+| Settings UI | `index.html` → Settings → Appearance | Theme selector: **Default** or **Purple/White** (immediate apply) |
+
+```js
+ThemeProvider.setPalette("purple-white"); // or "default"
+ThemeProvider.setMode("light");           // or "dark"
+ThemeProvider.init({ toggleBtn, paletteSelect });
+```
+
+Storage keys: `theme-palette` (`default` | `purple-white`), `dark-mode` (`enabled` | null).
+
 ## Token catalog (AC-CTTTPA-002.2)
 
 ### Brand & actions

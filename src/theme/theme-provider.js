@@ -1,10 +1,9 @@
 /**
- * Theme provider — wires design tokens into the live document (WO-03).
+ * Theme provider — centralized theming (WO-03 / REQ-CTTTPA).
  *
- * Responsibilities:
- * - Persist and restore light/dark mode
- * - Toggle body.light-mode / body.dark-mode (CSS token cascade)
- * - Apply ThemeTokens CSS custom properties onto :root for JS-driven sync
+ * - Palette: default | purple-white (Settings > Appearance)
+ * - Mode: light | dark (toggle)
+ * - Applies CSS custom properties from ThemeTokens when purple-white is active
  *
  * Depends on src/theme/tokens.js (window.ThemeTokens).
  */
@@ -17,8 +16,19 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function (root) {
   "use strict";
 
-  var STORAGE_KEY = "dark-mode";
+  var MODE_STORAGE_KEY = "dark-mode";
+  var PALETTE_STORAGE_KEY = "theme-palette";
   var DARK_VALUE = "enabled";
+
+  var PALETTES = {
+    DEFAULT: "default",
+    PURPLE_WHITE: "purple-white",
+  };
+
+  var PALETTE_LABELS = {
+    default: "Default",
+    "purple-white": "Purple/White",
+  };
 
   function getDocument() {
     return typeof document !== "undefined" ? document : null;
@@ -26,9 +36,19 @@
 
   function getMode() {
     try {
-      return localStorage.getItem(STORAGE_KEY) === DARK_VALUE ? "dark" : "light";
+      return localStorage.getItem(MODE_STORAGE_KEY) === DARK_VALUE ? "dark" : "light";
     } catch (e) {
       return "light";
+    }
+  }
+
+  function getPalette() {
+    try {
+      var stored = localStorage.getItem(PALETTE_STORAGE_KEY);
+      if (stored === PALETTES.PURPLE_WHITE) return PALETTES.PURPLE_WHITE;
+      return PALETTES.DEFAULT;
+    } catch (e) {
+      return PALETTES.DEFAULT;
     }
   }
 
@@ -37,10 +57,38 @@
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
 
+  function clearInlineTokens(doc) {
+    if (!root.ThemeTokens || !root.ThemeTokens.tokenNames) return;
+    root.ThemeTokens.tokenNames.forEach(function (name) {
+      doc.documentElement.style.removeProperty("--" + name);
+    });
+  }
+
+  function applyTokensForMode(doc, mode, palette) {
+    if (
+      palette === PALETTES.PURPLE_WHITE &&
+      root.ThemeTokens &&
+      typeof root.ThemeTokens.applyToElement === "function"
+    ) {
+      root.ThemeTokens.applyToElement(mode, doc.documentElement);
+    } else {
+      clearInlineTokens(doc);
+    }
+  }
+
+  function dispatchThemeChange(doc, mode, palette) {
+    if (!doc.body || !doc.body.dispatchEvent) return;
+    doc.body.dispatchEvent(
+      new CustomEvent("themechange", {
+        detail: { mode: mode, palette: palette },
+      })
+    );
+  }
+
   /**
-   * Apply a theme mode: body classes + CSS variables from ThemeTokens.
+   * Apply light/dark mode.
    * @param {"light"|"dark"} mode
-   * @param {{ persist?: boolean, toggleBtn?: HTMLInputElement|null }} [opts]
+   * @param {{ persist?: boolean, toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
    */
   function setMode(mode, opts) {
     var doc = getDocument();
@@ -49,23 +97,22 @@
     var resolved = mode === "dark" ? "dark" : "light";
     var persist = !opts || opts.persist !== false;
     var toggleBtn = opts && opts.toggleBtn;
+    var palette = getPalette();
 
     doc.body.classList.remove("dark-mode", "light-mode");
     doc.body.classList.add(resolved === "dark" ? "dark-mode" : "light-mode");
     doc.documentElement.setAttribute("data-theme", resolved);
 
-    if (root.ThemeTokens && typeof root.ThemeTokens.applyToElement === "function") {
-      root.ThemeTokens.applyToElement(resolved, doc.documentElement);
-    }
+    applyTokensForMode(doc, resolved, palette);
 
     if (persist) {
       try {
         localStorage.setItem(
-          STORAGE_KEY,
+          MODE_STORAGE_KEY,
           resolved === "dark" ? DARK_VALUE : null
         );
       } catch (e) {
-        /* ignore quota / private mode */
+        /* ignore */
       }
     }
 
@@ -73,12 +120,41 @@
       toggleBtn.checked = resolved === "dark";
     }
 
-    if (doc.body.dispatchEvent) {
-      doc.body.dispatchEvent(
-        new CustomEvent("themechange", { detail: { mode: resolved } })
-      );
+    dispatchThemeChange(doc, resolved, palette);
+    return resolved;
+  }
+
+  /**
+   * Apply theme palette (default or purple-white).
+   * @param {"default"|"purple-white"} palette
+   * @param {{ persist?: boolean, paletteSelect?: HTMLSelectElement|null, toggleBtn?: HTMLInputElement|null }} [opts]
+   */
+  function setPalette(palette, opts) {
+    var doc = getDocument();
+    if (!doc || !doc.body) return;
+
+    var resolved =
+      palette === PALETTES.PURPLE_WHITE ? PALETTES.PURPLE_WHITE : PALETTES.DEFAULT;
+    var persist = !opts || opts.persist !== false;
+    var paletteSelect = opts && opts.paletteSelect;
+    var mode = getMode();
+
+    doc.documentElement.setAttribute("data-theme-palette", resolved);
+    applyTokensForMode(doc, mode, resolved);
+
+    if (persist) {
+      try {
+        localStorage.setItem(PALETTE_STORAGE_KEY, resolved);
+      } catch (e) {
+        /* ignore */
+      }
     }
 
+    if (paletteSelect) {
+      paletteSelect.value = resolved;
+    }
+
+    dispatchThemeChange(doc, mode, resolved);
     return resolved;
   }
 
@@ -87,25 +163,37 @@
   }
 
   /**
-   * Initialize theme from storage or system preference.
-   * @param {{ toggleBtn?: HTMLInputElement|null }} [opts]
+   * Initialize palette + mode from storage / system preference.
+   * @param {{ toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
    */
   function init(opts) {
-    var stored = null;
+    var doc = getDocument();
+    var storedMode = null;
+    var palette = getPalette();
+
     try {
-      stored = localStorage.getItem(STORAGE_KEY);
+      storedMode = localStorage.getItem(MODE_STORAGE_KEY);
     } catch (e) {
-      stored = null;
+      storedMode = null;
     }
 
     var mode;
-    if (stored === DARK_VALUE) {
+    if (storedMode === DARK_VALUE) {
       mode = "dark";
-    } else if (stored === null && prefersDark()) {
+    } else if (storedMode === null && prefersDark()) {
       mode = "dark";
     } else {
       mode = "light";
     }
+
+    if (doc && doc.documentElement) {
+      doc.documentElement.setAttribute("data-theme-palette", palette);
+    }
+
+    setPalette(palette, {
+      persist: false,
+      paletteSelect: opts && opts.paletteSelect,
+    });
 
     return setMode(mode, {
       persist: true,
@@ -114,9 +202,14 @@
   }
 
   return {
-    STORAGE_KEY: STORAGE_KEY,
+    MODE_STORAGE_KEY: MODE_STORAGE_KEY,
+    PALETTE_STORAGE_KEY: PALETTE_STORAGE_KEY,
+    PALETTES: PALETTES,
+    PALETTE_LABELS: PALETTE_LABELS,
     getMode: getMode,
+    getPalette: getPalette,
     setMode: setMode,
+    setPalette: setPalette,
     toggle: toggle,
     init: init,
   };
