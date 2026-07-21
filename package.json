@@ -4,7 +4,9 @@
   "private": true,
   "description": "Static to-do list application.",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "audit": "node scripts/audit-theme-colors.js",
+    "audit:tokens": "node scripts/audit-theme-colors.js --token-file=theme-tokens.css"
   },
   "engines": {
     "node": ">=20"
