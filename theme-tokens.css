@@ -1,58 +1,58 @@
 /**
- * Centralized blue/white theme tokens (WO-02 / REQ-CTTOTA-002).
+ * Centralized purple/white theme tokens (WO-02 / REQ-CTTTPA-002).
  *
  * This is the stylesheet source of truth for CSS consumers.
  * Values must stay aligned with src/theme/tokens.js.
  *
- * Usage: color: var(--primary-blue); background: var(--surface-white);
+ * Usage: color: var(--primary-purple); background: var(--surface-white);
  * See docs/theme-tokens.md for the full developer-facing name list.
  */
 
 :root,
 body.light-mode {
   /* Brand / primary */
-  --primary-blue: #1e88e5;
-  --primary-blue-hover: #1565c0;
-  --primary-blue-deep: #183153;
-  --secondary-blue: #0081a7;
-  --accent-blue: #73c0fc;
-  --accent-blue-soft: #99cafb;
+  --primary-purple: #7c3aed;
+  --primary-purple-hover: #6d28d9;
+  --primary-purple-deep: #4c1d95;
+  --secondary-purple: #9333ea;
+  --accent-purple: #a78bfa;
+  --accent-purple-soft: #ddd6fe;
 
   /* Surfaces & backgrounds */
   --surface-white: #ffffff;
-  --surface-white-muted: #f5f9fc;
+  --surface-white-muted: #faf5ff;
   --surface-glass: rgba(255, 255, 255, 0.45);
   --surface-card: rgba(255, 255, 255, 0.54);
   --bg-page-start: #ffffff;
-  --bg-page-end: #99cafb;
+  --bg-page-end: #ede9fe;
   --bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Text */
   --text-on-primary: #ffffff;
-  --text-on-surface: #0d1b2a;
-  --text-primary: #0d1b2a;
-  --text-secondary: #656565;
-  --text-muted: #6c6c6c;
+  --text-on-surface: #1e1b4b;
+  --text-primary: #1e1b4b;
+  --text-secondary: #5b5675;
+  --text-muted: #6b7280;
 
   /* Neutrals */
-  --neutral-50: #f8fafc;
-  --neutral-100: #e8e8e8;
-  --neutral-200: #dfe6e9;
-  --neutral-400: #b1b1b1;
-  --neutral-600: #6c6c6c;
-  --neutral-800: #333333;
-  --neutral-900: #000000;
+  --neutral-50: #fafafa;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-400: #9ca3af;
+  --neutral-600: #6b7280;
+  --neutral-800: #374151;
+  --neutral-900: #111827;
 
   /* Borders & focus */
-  --border-muted: rgba(70, 70, 70, 0.87);
+  --border-muted: rgba(91, 86, 117, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
-  --focus-ring: rgba(1, 110, 225, 0.85);
+  --focus-ring: rgba(124, 58, 237, 0.85);
 
   /* Semantic */
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
   --priority-low: rgba(0, 128, 0, 0.47);
-  --priority-done: rgba(8, 0, 255, 0.47);
+  --priority-done: rgba(124, 58, 237, 0.55);
   --success-text: #0f5132;
   --success-bg: #d1e7dd;
   --success-border: #badbcc;
@@ -62,49 +62,49 @@ body.light-mode {
 }
 
 body.dark-mode {
-  /* Brand / primary — blue family only (no legacy purple) */
-  --primary-blue: #4fc3f7;
-  --primary-blue-hover: #29b6f6;
-  --primary-blue-deep: #0d47a1;
-  --secondary-blue: #81d4fa;
-  --accent-blue: #74b9ff;
-  --accent-blue-soft: #90caf9;
+  /* Brand / primary — purple family */
+  --primary-purple: #a78bfa;
+  --primary-purple-hover: #8b5cf6;
+  --primary-purple-deep: #2e1065;
+  --secondary-purple: #c084fc;
+  --accent-purple: #c4b5fd;
+  --accent-purple-soft: #6d28d9;
 
   /* Surfaces & backgrounds */
-  --surface-white: #e3f2fd;
-  --surface-white-muted: #1a2332;
-  --surface-glass: rgba(30, 58, 95, 0.45);
-  --surface-card: rgba(13, 27, 42, 0.92);
-  --bg-page-start: #0d1b2a;
-  --bg-page-end: #1b3a5c;
+  --surface-white: #f5f3ff;
+  --surface-white-muted: #1e1b4b;
+  --surface-glass: rgba(46, 16, 101, 0.45);
+  --surface-card: rgba(30, 27, 75, 0.92);
+  --bg-page-start: #1e1b4b;
+  --bg-page-end: #4c1d95;
   --bg-overlay: rgba(1, 1, 1, 0.85);
 
   /* Text */
   --text-on-primary: #ffffff;
-  --text-on-surface: #e8f1fa;
-  --text-primary: #f3f7fb;
-  --text-secondary: #b0bec5;
-  --text-muted: #90a4ae;
+  --text-on-surface: #ede9fe;
+  --text-primary: #f5f3ff;
+  --text-secondary: #c4b5fd;
+  --text-muted: #a78bfa;
 
   /* Neutrals */
-  --neutral-50: #102a43;
-  --neutral-100: #243b53;
-  --neutral-200: #334e68;
-  --neutral-400: #627d98;
-  --neutral-600: #9fb3c8;
-  --neutral-800: #d9e2ec;
-  --neutral-900: #f0f4f8;
+  --neutral-50: #2e1065;
+  --neutral-100: #3b0764;
+  --neutral-200: #4c1d95;
+  --neutral-400: #7c3aed;
+  --neutral-600: #a78bfa;
+  --neutral-800: #ddd6fe;
+  --neutral-900: #f5f3ff;
 
   /* Borders & focus */
-  --border-muted: rgba(144, 202, 249, 0.55);
-  --border-accent: rgba(79, 195, 247, 0.65);
-  --focus-ring: rgba(79, 195, 247, 0.85);
+  --border-muted: rgba(167, 139, 250, 0.55);
+  --border-accent: rgba(196, 181, 253, 0.65);
+  --focus-ring: rgba(167, 139, 250, 0.85);
 
   /* Semantic */
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
   --priority-low: rgba(0, 189, 0, 0.8);
-  --priority-done: rgba(66, 165, 245, 0.9);
+  --priority-done: rgba(167, 139, 250, 0.9);
   --success-text: #a3d9b1;
   --success-bg: #1b4332;
   --success-border: #2d6a4f;

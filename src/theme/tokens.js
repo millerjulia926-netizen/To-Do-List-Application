@@ -1,8 +1,8 @@
 /**
- * Blue/white design tokens — single source of truth (WO-02 / REQ-CTTOTA-002).
+ * Purple/white design tokens — single source of truth (WO-02 / REQ-CTTTPA-002).
  *
  * Keep values in sync with theme-tokens.css (CSS custom properties on :root).
- * Downstream UI should reference CSS vars (var(--primary-blue)) or this module;
+ * Downstream UI should reference CSS vars (var(--primary-purple)) or this module;
  * do not introduce new hardcoded hex/rgb colors in components.
  *
  * Documented names: docs/theme-tokens.md
@@ -23,27 +23,27 @@
    * @type {Record<string, ModeValue>}
    */
   const palette = {
-    // Brand / primary actions (approved blues + white text)
-    "primary-blue": { light: "#1e88e5", dark: "#4fc3f7" },
-    "primary-blue-hover": { light: "#1565c0", dark: "#29b6f6" },
-    "primary-blue-deep": { light: "#183153", dark: "#0d47a1" },
-    "secondary-blue": { light: "#0081a7", dark: "#81d4fa" },
-    "accent-blue": { light: "#73c0fc", dark: "#74b9ff" },
-    "accent-blue-soft": { light: "#99cafb", dark: "#90caf9" },
+    // Brand / primary actions (approved purples + white text)
+    "primary-purple": { light: "#7c3aed", dark: "#a78bfa" },
+    "primary-purple-hover": { light: "#6d28d9", dark: "#8b5cf6" },
+    "primary-purple-deep": { light: "#4c1d95", dark: "#2e1065" },
+    "secondary-purple": { light: "#9333ea", dark: "#c084fc" },
+    "accent-purple": { light: "#a78bfa", dark: "#c4b5fd" },
+    "accent-purple-soft": { light: "#ddd6fe", dark: "#6d28d9" },
 
     // Surfaces & backgrounds
-    "surface-white": { light: "#ffffff", dark: "#e3f2fd" },
-    "surface-white-muted": { light: "#f5f9fc", dark: "#1a2332" },
+    "surface-white": { light: "#ffffff", dark: "#f5f3ff" },
+    "surface-white-muted": { light: "#faf5ff", dark: "#1e1b4b" },
     "surface-glass": {
       light: "rgba(255, 255, 255, 0.45)",
-      dark: "rgba(30, 58, 95, 0.45)",
+      dark: "rgba(46, 16, 101, 0.45)",
     },
     "surface-card": {
       light: "rgba(255, 255, 255, 0.54)",
-      dark: "rgba(13, 27, 42, 0.92)",
+      dark: "rgba(30, 27, 75, 0.92)",
     },
-    "bg-page-start": { light: "#ffffff", dark: "#0d1b2a" },
-    "bg-page-end": { light: "#99cafb", dark: "#1b3a5c" },
+    "bg-page-start": { light: "#ffffff", dark: "#1e1b4b" },
+    "bg-page-end": { light: "#ede9fe", dark: "#4c1d95" },
     "bg-overlay": {
       light: "rgba(0, 0, 0, 0.5)",
       dark: "rgba(1, 1, 1, 0.85)",
@@ -51,35 +51,35 @@
 
     // Text on chrome / buttons
     "text-on-primary": { light: "#ffffff", dark: "#ffffff" },
-    "text-on-surface": { light: "#0d1b2a", dark: "#e8f1fa" },
-    "text-primary": { light: "#0d1b2a", dark: "#f3f7fb" },
-    "text-secondary": { light: "#656565", dark: "#b0bec5" },
-    "text-muted": { light: "#6c6c6c", dark: "#90a4ae" },
+    "text-on-surface": { light: "#1e1b4b", dark: "#ede9fe" },
+    "text-primary": { light: "#1e1b4b", dark: "#f5f3ff" },
+    "text-secondary": { light: "#5b5675", dark: "#c4b5fd" },
+    "text-muted": { light: "#6b7280", dark: "#a78bfa" },
 
     // Neutrals
-    "neutral-50": { light: "#f8fafc", dark: "#102a43" },
-    "neutral-100": { light: "#e8e8e8", dark: "#243b53" },
-    "neutral-200": { light: "#dfe6e9", dark: "#334e68" },
-    "neutral-400": { light: "#b1b1b1", dark: "#627d98" },
-    "neutral-600": { light: "#6c6c6c", dark: "#9fb3c8" },
-    "neutral-800": { light: "#333333", dark: "#d9e2ec" },
-    "neutral-900": { light: "#000000", dark: "#f0f4f8" },
+    "neutral-50": { light: "#fafafa", dark: "#2e1065" },
+    "neutral-100": { light: "#f3f4f6", dark: "#3b0764" },
+    "neutral-200": { light: "#e5e7eb", dark: "#4c1d95" },
+    "neutral-400": { light: "#9ca3af", dark: "#7c3aed" },
+    "neutral-600": { light: "#6b7280", dark: "#a78bfa" },
+    "neutral-800": { light: "#374151", dark: "#ddd6fe" },
+    "neutral-900": { light: "#111827", dark: "#f5f3ff" },
 
     // Borders & focus
     "border-muted": {
-      light: "rgba(70, 70, 70, 0.87)",
-      dark: "rgba(144, 202, 249, 0.55)",
+      light: "rgba(91, 86, 117, 0.35)",
+      dark: "rgba(167, 139, 250, 0.55)",
     },
     "border-accent": {
       light: "rgba(255, 255, 255, 0.18)",
-      dark: "rgba(79, 195, 247, 0.65)",
+      dark: "rgba(196, 181, 253, 0.65)",
     },
     "focus-ring": {
-      light: "rgba(1, 110, 225, 0.85)",
-      dark: "rgba(79, 195, 247, 0.85)",
+      light: "rgba(124, 58, 237, 0.85)",
+      dark: "rgba(167, 139, 250, 0.85)",
     },
 
-    // Semantic (priority / alerts) — kept intentional, not purple brand accents
+    // Semantic (priority / alerts) — kept intentional, not brand purple accents
     "priority-high": {
       light: "rgba(255, 0, 0, 0.47)",
       dark: "rgba(255, 82, 82, 0.74)",
@@ -93,8 +93,8 @@
       dark: "rgba(0, 189, 0, 0.8)",
     },
     "priority-done": {
-      light: "rgba(8, 0, 255, 0.47)",
-      dark: "rgba(66, 165, 245, 0.9)",
+      light: "rgba(124, 58, 237, 0.55)",
+      dark: "rgba(167, 139, 250, 0.9)",
     },
     "success-text": { light: "#0f5132", dark: "#a3d9b1" },
     "success-bg": { light: "#d1e7dd", dark: "#1b4332" },
@@ -136,7 +136,7 @@
     }
   }
 
-  /** Token names for documentation / tooling (AC-CTTOTA-002.2). */
+  /** Token names for documentation / tooling (AC-CTTTPA-002.2). */
   const tokenNames = Object.keys(palette);
 
   return {
