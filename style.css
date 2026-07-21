@@ -940,7 +940,7 @@ li {
 }
 
 .titleText {
-  color: var(--accent-purple);
+  color: var(--primary-purple);
 }
 
 .light-mode .footer-down {
@@ -958,21 +958,22 @@ li {
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border: 1px solid var(--border-accent);
-  
+  border-top: 2px solid var(--primary-purple);
 }
 .dark-mode .footer-down {
   position: -webkit-sticky;
   position: relative !important;
   bottom: 0;
   height: 5vh;
-  color: var(--surface-white);
+  color: var(--text-on-primary);
   padding-top: 10px;
   padding-left: 0px;
   max-width: auto;
-  background: var(--surface-glass);
+  background: var(--primary-purple-deep);
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border: 1px solid var(--border-accent);
+  border-top: 2px solid var(--accent-purple);
 }
 
 .light-mode .inputcss {
@@ -1105,12 +1106,12 @@ li {
 
 .light-mode .github-icon a i{
   font-size: 50px;
-  color: var(--text-primary) !important;
+  color: var(--primary-purple) !important;
 }
 
 .dark-mode .github-icon a i{
   font-size: 50px;
-  color:var(--neutral-800) !important;
+  color: var(--accent-purple) !important;
 }
 
 /* Settings panel (WO-03) */
@@ -1118,6 +1119,7 @@ li {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  padding: 0 0 0.5rem;
 }
 
 .settings-toggle {
@@ -1132,12 +1134,13 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .settings-toggle:hover {
   background: var(--surface-white);
   border-color: var(--primary-purple);
+  color: var(--primary-purple-hover);
 }
 
 .settings-backdrop {
@@ -1156,7 +1159,7 @@ li {
   z-index: 1050;
   background: var(--surface-white);
   border-left: 2px solid var(--border-muted);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  box-shadow: -4px 0 24px var(--bg-overlay);
   padding: 1.25rem 1.5rem;
   overflow-y: auto;
 }
@@ -1166,12 +1169,14 @@ li {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-purple);
 }
 
 .settings-panel__header h2 {
   margin: 0;
   font-size: 1.35rem;
-  color: var(--text-primary);
+  color: var(--primary-purple);
 }
 
 .settings-panel__close {
@@ -1181,6 +1186,10 @@ li {
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0.25rem;
+}
+
+.settings-panel__close:hover {
+  color: var(--primary-purple);
 }
 
 .settings-section__title {
@@ -1217,7 +1226,71 @@ li {
   color: var(--text-primary);
 }
 
-/* Theme infrastructure: primary/secondary actions use token purples */
+/* App chrome: title, github link, footer (WO-03 / REQ-MTTCRA-002) */
+.titleText {
+  color: var(--primary-purple);
+}
+
+.github-icon a {
+  color: var(--primary-purple);
+  transition: color 0.2s ease;
+}
+
+.github-icon a:hover,
+.github-icon a:focus {
+  color: var(--primary-purple-hover);
+}
+
+.light-mode .github-icon a i {
+  font-size: 50px;
+  color: var(--primary-purple) !important;
+}
+
+.dark-mode .github-icon a i {
+  font-size: 50px;
+  color: var(--accent-purple) !important;
+}
+
+.light-mode .footer-down {
+  color: var(--text-secondary);
+  background: radial-gradient(
+    2224px at 10.6% 8.8%,
+    var(--bg-page-start) 0%,
+    var(--bg-page-end) 100.2%
+  );
+  border-top: 2px solid var(--primary-purple);
+  border-left: 1px solid var(--border-accent);
+  border-right: 1px solid var(--border-accent);
+  border-bottom: 1px solid var(--border-accent);
+}
+
+.dark-mode .footer-down {
+  color: var(--text-on-primary);
+  background: var(--primary-purple-deep);
+  border-top: 2px solid var(--accent-purple);
+  border-left: 1px solid var(--border-accent);
+  border-right: 1px solid var(--border-accent);
+  border-bottom: 1px solid var(--border-accent);
+}
+
+.footer-down b {
+  color: var(--primary-purple);
+}
+
+.dark-mode .footer-down b {
+  color: var(--accent-purple);
+}
+
+.preloader {
+  background-color: var(--surface-white);
+  color: var(--primary-purple);
+}
+
+.preloader #todo-header {
+  color: var(--primary-purple);
+}
+
+/* Theme infrastructure: buttons, forms, links, focus (WO-04 / REQ-MTTCRA-002) */
 .btn-dark,
 #dueDate.btn-dark {
   color: var(--text-on-primary);
@@ -1232,9 +1305,18 @@ li {
   border-color: var(--primary-purple-hover);
 }
 
+.btn-dark:focus,
+.btn-dark:focus-visible,
+#dueDate.btn-dark:focus,
+#dueDate.btn-dark:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
 .btn-outline-primary,
 .btn-outline-success.addbtn,
-#submitBtn.btn-outline-success {
+#submitBtn.btn-outline-success,
+.btn-outline-dark {
   color: var(--primary-purple);
   background-color: transparent;
   border-color: var(--primary-purple);
@@ -1242,16 +1324,140 @@ li {
 
 .btn-outline-primary:hover,
 .btn-outline-success.addbtn:hover,
-#submitBtn.btn-outline-success:hover:not(:disabled) {
+#submitBtn.btn-outline-success:hover:not(:disabled),
+.btn-outline-dark:hover {
   color: var(--text-on-primary);
   background-color: var(--primary-purple);
   border-color: var(--primary-purple);
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:focus-visible,
+.btn-outline-success.addbtn:focus,
+.btn-outline-success.addbtn:focus-visible,
+#submitBtn.btn-outline-success:focus:not(:disabled),
+.btn-outline-dark:focus,
+.btn-outline-dark:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 #submitBtn.btn-outline-success:not(:disabled) {
   color: var(--text-on-primary);
   background-color: var(--primary-purple);
   border-color: var(--primary-purple);
+}
+
+#submitBtn.btn-outline-success:not(:disabled):hover {
+  background-color: var(--primary-purple-hover);
+  border-color: var(--primary-purple-hover);
+}
+
+.btn-outline-danger,
+.clear_btn.btn-outline-danger {
+  color: var(--danger-text);
+  border-color: var(--danger-border);
+  background-color: transparent;
+}
+
+.btn-outline-danger:hover,
+.clear_btn.btn-outline-danger:hover {
+  color: var(--text-on-primary);
+  background-color: var(--danger-text);
+  border-color: var(--danger-text);
+}
+
+.btn-outline-secondary.edit,
+.list-group-item .btn-outline-success {
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+.btn-outline-secondary.edit:hover,
+.list-group-item .btn-outline-success:hover {
+  color: var(--text-on-primary);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+a,
+.dropdown-content a {
+  color: var(--primary-purple);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--primary-purple-hover);
+}
+
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  background-color: var(--accent-purple-soft);
+  color: var(--text-on-surface);
+}
+
+.light-mode .inputcss,
+.dark-mode .inputcss,
+#description.inputcss,
+#searchBar.inputcss,
+#priority {
+  border-color: var(--border-muted);
+  color: var(--text-primary);
+  background-color: var(--surface-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.light-mode .inputcss:hover,
+.dark-mode .inputcss:hover,
+#description.inputcss:hover,
+#searchBar.inputcss:hover,
+#priority:hover {
+  border-color: var(--primary-purple);
+}
+
+.light-mode .inputcss:focus,
+.dark-mode .inputcss:focus,
+#description.inputcss:focus,
+#searchBar.inputcss:focus,
+#priority:focus,
+#item:focus,
+#dueDate:focus {
+  outline: none;
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.dark-mode #priority {
+  border: 2px solid var(--primary-purple);
+  background-color: var(--surface-white-muted);
+  color: var(--text-primary);
+}
+
+.list-group-item.card {
+  background-color: var(--surface-card);
+  border-color: var(--border-muted);
+  color: var(--text-on-surface);
+}
+
+.confirm-content,
+.confirm-content-all {
+  background-color: var(--surface-white);
+  border: 2px solid var(--border-muted);
+  color: var(--text-primary);
+}
+
+.confirm-content .btn,
+.confirm-content-all .btn {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#voice-command-button:focus,
+#voice-command-button:focus-visible,
+.settings-toggle:focus,
+.settings-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .sun svg {
@@ -1276,4 +1482,5 @@ li {
   background: var(--priority-high);
   color: var(--text-on-surface);
 }
+
 
