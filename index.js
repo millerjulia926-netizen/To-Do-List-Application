@@ -12,6 +12,7 @@ const settingsCloseBtn = document.getElementById("settingsClose");
 const settingsPanel = document.getElementById("settingsPanel");
 const settingsBackdrop = document.getElementById("settingsBackdrop");
 const themePaletteSelect = document.getElementById("themePaletteSelect");
+const highContrastToggle = document.getElementById("highContrastToggle");
 const checkboxes = document.querySelectorAll(".form-check-input");
 let editItem = null;
 const tasksWithPriority = [];
@@ -49,6 +50,9 @@ if (settingsBackdrop) {
 }
 if (themePaletteSelect) {
   themePaletteSelect.addEventListener("change", handleThemePaletteChange);
+}
+if (highContrastToggle) {
+  highContrastToggle.addEventListener("change", handleHighContrastChange);
 }
 checkboxes.forEach((checkbox) => {
   checkbox.addEventListener("change", markAsComplete);
@@ -766,6 +770,34 @@ function handleThemePaletteChange() {
   ThemeProvider.setPalette(themePaletteSelect.value, {
     paletteSelect: themePaletteSelect,
     toggleBtn: modeToggleBtn,
+    highContrastToggle: highContrastToggle,
+  });
+}
+
+function handleHighContrastChange() {
+  if (!highContrastToggle || !window.ThemeProvider) return;
+  ThemeProvider.setHighContrast(highContrastToggle.checked, {
+    highContrastToggle: highContrastToggle,
+  });
+}
+
+/** Ensure Appearance theme options include Red & White (AC-MTTCRA-001.1). */
+function ensureThemePaletteOptions() {
+  if (!themePaletteSelect || !window.ThemeProvider) return;
+  const labels = ThemeProvider.PALETTE_LABELS || {};
+  const required = [
+    { value: "default", label: labels.default || "Default" },
+    { value: "purple-white", label: labels["purple-white"] || "Purple/White" },
+    { value: "red-white", label: labels["red-white"] || "Red & White" },
+  ];
+  required.forEach(({ value, label }) => {
+    let option = themePaletteSelect.querySelector(`option[value="${value}"]`);
+    if (!option) {
+      option = document.createElement("option");
+      option.value = value;
+      themePaletteSelect.appendChild(option);
+    }
+    option.textContent = label;
   });
 }
 
@@ -983,9 +1015,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to handle dark mode preference via ThemeProvider
 function themeSwitcher() {
   if (window.ThemeProvider) {
+    ensureThemePaletteOptions();
     ThemeProvider.init({
       toggleBtn: modeToggleBtn,
       paletteSelect: themePaletteSelect,
+      highContrastToggle: highContrastToggle,
     });
     return;
   }

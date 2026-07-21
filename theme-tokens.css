@@ -1,11 +1,14 @@
 /**
- * Centralized theme tokens (WO-02 / WO-03 / REQ-CTTTPA).
+ * Centralized theme tokens (WO-01 / REQ-MTTCRA + legacy CTTTPA).
  *
- * Default palette on :root; purple/white overrides when
- * html[data-theme-palette="purple-white"] is set by ThemeProvider.
+ * Default palette on :root; purple/white or red/white overrides when
+ * html[data-theme-palette="…"] is set by ThemeProvider.
  *
- * Values must stay aligned with src/theme/tokens.js (purple/white palette).
+ * Values must stay aligned with src/theme/tokens.js.
  * See docs/theme-tokens.md for the developer-facing catalog.
+ *
+ * CSS custom property names keep the historical `*-purple` brand prefix;
+ * red/white supplies red hex values under those same token names.
  */
 
 /* ── Default palette (bootstrap-aligned baseline) ── */
@@ -194,4 +197,159 @@ html[data-theme-palette="purple-white"] body.dark-mode {
   --danger-text: #f5c2c7;
   --danger-bg: #4a1520;
   --danger-border: #842029;
+}
+
+/* ── Red/white palette (MTTCRA / WO-01) ── */
+html[data-theme-palette="red-white"],
+html[data-theme-palette="red-white"] body.light-mode {
+  --primary-purple: #b91c1c;
+  --primary-purple-hover: #991b1b;
+  --primary-purple-deep: #7f1d1d;
+  --secondary-purple: #dc2626;
+  --accent-purple: #ef4444;
+  --accent-purple-soft: #fecaca;
+
+  --surface-white: #ffffff;
+  --surface-white-muted: #fef2f2;
+  --surface-glass: rgba(255, 255, 255, 0.45);
+  --surface-card: rgba(255, 255, 255, 0.54);
+  --bg-page-start: #ffffff;
+  --bg-page-end: #fee2e2;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  --text-on-primary: #ffffff;
+  --text-on-surface: #450a0a;
+  --text-primary: #450a0a;
+  --text-secondary: #7f1d1d;
+  --text-muted: #4b5563;
+
+  --neutral-50: #fafafa;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-400: #9ca3af;
+  --neutral-600: #4b5563;
+  --neutral-800: #374151;
+  --neutral-900: #111827;
+
+  --border-muted: rgba(127, 29, 29, 0.45);
+  --border-accent: rgba(255, 255, 255, 0.18);
+  --focus-ring: rgba(185, 28, 28, 0.9);
+
+  /* Status colors distinct from brand red */
+  --priority-high: rgba(234, 88, 12, 0.55);
+  --priority-medium: rgba(202, 138, 4, 0.5);
+  --priority-low: rgba(22, 163, 74, 0.5);
+  --priority-done: rgba(220, 38, 38, 0.45);
+  --success-text: #0f5132;
+  --success-bg: #d1e7dd;
+  --success-border: #badbcc;
+  --danger-text: #9f1239;
+  --danger-bg: #ffe4e6;
+  --danger-border: #fecdd3;
+}
+
+html[data-theme-palette="red-white"] body.dark-mode {
+  --primary-purple: #f87171;
+  --primary-purple-hover: #ef4444;
+  --primary-purple-deep: #450a0a;
+  --secondary-purple: #fca5a5;
+  --accent-purple: #fecaca;
+  --accent-purple-soft: #b91c1c;
+
+  --surface-white: #fef2f2;
+  --surface-white-muted: #450a0a;
+  --surface-glass: rgba(69, 10, 10, 0.45);
+  --surface-card: rgba(69, 10, 10, 0.92);
+  --bg-page-start: #450a0a;
+  --bg-page-end: #7f1d1d;
+  --bg-overlay: rgba(1, 1, 1, 0.85);
+
+  --text-on-primary: #ffffff;
+  --text-on-surface: #fee2e2;
+  --text-primary: #fef2f2;
+  --text-secondary: #fecaca;
+  --text-muted: #f87171;
+
+  --neutral-50: #450a0a;
+  --neutral-100: #7f1d1d;
+  --neutral-200: #991b1b;
+  --neutral-400: #dc2626;
+  --neutral-600: #f87171;
+  --neutral-800: #fecaca;
+  --neutral-900: #fef2f2;
+
+  --border-muted: rgba(248, 113, 113, 0.55);
+  --border-accent: rgba(254, 202, 202, 0.65);
+  --focus-ring: rgba(248, 113, 113, 0.85);
+
+  --priority-high: rgba(251, 146, 60, 0.85);
+  --priority-medium: rgba(250, 204, 21, 0.85);
+  --priority-low: rgba(74, 222, 128, 0.8);
+  --priority-done: rgba(248, 113, 113, 0.9);
+  --success-text: #a3d9b1;
+  --success-bg: #1b4332;
+  --success-border: #2d6a4f;
+  --danger-text: #fda4af;
+  --danger-bg: #4c0519;
+  --danger-border: #9f1239;
+}
+
+/* ── High contrast (AC-MTTCRA-004.2) — boosts red/white + text contrast ── */
+html[data-high-contrast="true"] {
+  --text-primary: #000000;
+  --text-secondary: #111111;
+  --text-muted: #222222;
+  --border-muted: rgba(0, 0, 0, 0.75);
+  --focus-ring: rgba(0, 0, 0, 0.95);
+}
+
+html[data-high-contrast="true"][data-theme-palette="red-white"],
+html[data-high-contrast="true"][data-theme-palette="red-white"] body.light-mode {
+  --primary-purple: #991b1b;
+  --primary-purple-hover: #7f1d1d;
+  --primary-purple-deep: #450a0a;
+  --secondary-purple: #b91c1c;
+  --accent-purple: #dc2626;
+  --accent-purple-soft: #fecaca;
+
+  --surface-white: #ffffff;
+  --surface-white-muted: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.92);
+  --surface-card: #ffffff;
+  --bg-page-start: #ffffff;
+  --bg-page-end: #ffffff;
+
+  --text-on-primary: #ffffff;
+  --text-on-surface: #000000;
+  --text-primary: #000000;
+  --text-secondary: #111111;
+  --text-muted: #222222;
+
+  --border-muted: rgba(0, 0, 0, 0.8);
+  --focus-ring: rgba(153, 27, 27, 0.95);
+}
+
+html[data-high-contrast="true"][data-theme-palette="red-white"] body.dark-mode {
+  --primary-purple: #fecaca;
+  --primary-purple-hover: #ffffff;
+  --primary-purple-deep: #000000;
+  --secondary-purple: #ffffff;
+  --accent-purple: #ffffff;
+  --accent-purple-soft: #7f1d1d;
+
+  --surface-white: #ffffff;
+  --surface-white-muted: #000000;
+  --surface-glass: rgba(0, 0, 0, 0.92);
+  --surface-card: #000000;
+  --bg-page-start: #000000;
+  --bg-page-end: #000000;
+
+  --text-on-primary: #000000;
+  --text-on-surface: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #f5f5f5;
+
+  --border-muted: rgba(255, 255, 255, 0.85);
+  --focus-ring: rgba(254, 202, 202, 0.95);
 }
