@@ -1,9 +1,9 @@
 /**
- * Theme provider — centralized theming (WO-03 / REQ-CTTTPA).
+ * Theme provider — centralized theming (WO-02 / REQ-MTTCRA).
  *
- * - Palette: default | purple-white (Settings > Appearance)
+ * - Palette: default | purple-white | red-white (Settings > Appearance)
  * - Mode: light | dark (toggle)
- * - Applies CSS custom properties from ThemeTokens when purple-white is active
+ * - Applies CSS custom properties from ThemeTokens when a branded palette is active
  *
  * Depends on src/theme/tokens.js (window.ThemeTokens).
  */
@@ -23,12 +23,16 @@
   var PALETTES = {
     DEFAULT: "default",
     PURPLE_WHITE: "purple-white",
+    RED_WHITE: "red-white",
   };
 
   var PALETTE_LABELS = {
     default: "Default",
     "purple-white": "Purple/White",
+    "red-white": "Red & White",
   };
+
+  var BRANDED_PALETTES = [PALETTES.PURPLE_WHITE, PALETTES.RED_WHITE];
 
   function getDocument() {
     return typeof document !== "undefined" ? document : null;
@@ -42,11 +46,15 @@
     }
   }
 
+  function normalizePalette(value) {
+    if (value === PALETTES.PURPLE_WHITE) return PALETTES.PURPLE_WHITE;
+    if (value === PALETTES.RED_WHITE) return PALETTES.RED_WHITE;
+    return PALETTES.DEFAULT;
+  }
+
   function getPalette() {
     try {
-      var stored = localStorage.getItem(PALETTE_STORAGE_KEY);
-      if (stored === PALETTES.PURPLE_WHITE) return PALETTES.PURPLE_WHITE;
-      return PALETTES.DEFAULT;
+      return normalizePalette(localStorage.getItem(PALETTE_STORAGE_KEY));
     } catch (e) {
       return PALETTES.DEFAULT;
     }
@@ -55,6 +63,10 @@
   function prefersDark() {
     if (typeof window === "undefined" || !window.matchMedia) return false;
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function isBrandedPalette(palette) {
+    return BRANDED_PALETTES.indexOf(palette) !== -1;
   }
 
   function clearInlineTokens(doc) {
@@ -66,11 +78,11 @@
 
   function applyTokensForMode(doc, mode, palette) {
     if (
-      palette === PALETTES.PURPLE_WHITE &&
+      isBrandedPalette(palette) &&
       root.ThemeTokens &&
       typeof root.ThemeTokens.applyToElement === "function"
     ) {
-      root.ThemeTokens.applyToElement(mode, doc.documentElement);
+      root.ThemeTokens.applyToElement(mode, doc.documentElement, palette);
     } else {
       clearInlineTokens(doc);
     }
@@ -125,16 +137,16 @@
   }
 
   /**
-   * Apply theme palette (default or purple-white).
-   * @param {"default"|"purple-white"} palette
+   * Apply theme palette (default, purple-white, or red-white).
+   * Applies immediately without a page reload (AC-MTTCRA-001.2).
+   * @param {"default"|"purple-white"|"red-white"} palette
    * @param {{ persist?: boolean, paletteSelect?: HTMLSelectElement|null, toggleBtn?: HTMLInputElement|null }} [opts]
    */
   function setPalette(palette, opts) {
     var doc = getDocument();
     if (!doc || !doc.body) return;
 
-    var resolved =
-      palette === PALETTES.PURPLE_WHITE ? PALETTES.PURPLE_WHITE : PALETTES.DEFAULT;
+    var resolved = normalizePalette(palette);
     var persist = !opts || opts.persist !== false;
     var paletteSelect = opts && opts.paletteSelect;
     var mode = getMode();
@@ -164,6 +176,7 @@
 
   /**
    * Initialize palette + mode from storage / system preference.
+   * When no palette has been selected, keeps the default theme (AC-MTTCRA-001.3).
    * @param {{ toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
    */
   function init(opts) {
