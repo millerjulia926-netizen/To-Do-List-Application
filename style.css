@@ -1215,6 +1215,20 @@ li {
   width: 100%;
 }
 
+.settings-field--toggle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.settings-field__checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--primary-purple);
+  cursor: pointer;
+}
+
 .settings-section__hint {
   font-size: 0.8rem;
   color: var(--text-muted);

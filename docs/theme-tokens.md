@@ -35,11 +35,11 @@ Canonical brand reds + white surfaces. Status colors stay **distinct** from bran
 
 | Token | CSS variable | Light | Dark | Role |
 |-------|--------------|-------|------|------|
-| primary-purple | `--primary-purple` | `#dc2626` | `#f87171` | Primary actions, key chrome |
-| primary-purple-hover | `--primary-purple-hover` | `#b91c1c` | `#ef4444` | Hover/active primary |
+| primary-purple | `--primary-purple` | `#b91c1c` | `#f87171` | Primary actions, key chrome (AA with white text) |
+| primary-purple-hover | `--primary-purple-hover` | `#991b1b` | `#ef4444` | Hover/active primary |
 | primary-purple-deep | `--primary-purple-deep` | `#7f1d1d` | `#450a0a` | Deep red accents |
-| secondary-purple | `--secondary-purple` | `#ef4444` | `#fca5a5` | Secondary actions |
-| accent-purple | `--accent-purple` | `#f87171` | `#fecaca` | Highlights, icons |
+| secondary-purple | `--secondary-purple` | `#dc2626` | `#fca5a5` | Secondary actions |
+| accent-purple | `--accent-purple` | `#ef4444` | `#fecaca` | Highlights, icons |
 | accent-purple-soft | `--accent-purple-soft` | `#fecaca` | `#b91c1c` | Soft fills, gradient ends |
 
 ### Surfaces & page background
@@ -89,16 +89,17 @@ Light values apply on `:root` / `body.light-mode`. Dark values apply under `body
 |-------|------|------|
 | Token CSS | `theme-tokens.css` | Default on `:root`; overrides under `html[data-theme-palette="purple-white"\|"red-white"]` |
 | JS tokens | `src/theme/tokens.js` | `palettes["red-white"]` / `palettes["purple-white"]` for runtime apply |
-| Provider | `src/theme/theme-provider.js` | Persists palette + mode; sets `data-theme-palette` |
-| Settings UI | `index.html` → Settings → Appearance | Theme selector including **Red & White** |
+| Provider | `src/theme/theme-provider.js` | Persists palette + mode + high contrast; sets `data-theme-palette` / `data-high-contrast` |
+| Settings UI | `index.html` → Settings → Appearance | Theme selector including **Red & White**; **High contrast** toggle |
 
 ```js
 ThemeProvider.setPalette("red-white"); // or "default" | "purple-white"
 ThemeProvider.setMode("light");
-ThemeProvider.init({ toggleBtn, paletteSelect });
+ThemeProvider.setHighContrast(true);
+ThemeProvider.init({ toggleBtn, paletteSelect, highContrastToggle });
 ```
 
-Storage keys: `theme-palette` (`default` | `purple-white` | `red-white`), `dark-mode` (`enabled` | null).
+Storage keys: `theme-palette` (`default` | `purple-white` | `red-white`), `dark-mode` (`enabled` | null), `theme-high-contrast` (`enabled` | null).
 
 ## Migration notes
 

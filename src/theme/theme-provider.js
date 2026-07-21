@@ -1,8 +1,9 @@
 /**
- * Theme provider — centralized theming (WO-02 / REQ-MTTCRA).
+ * Theme provider — centralized theming (WO-02 / WO-09 / REQ-MTTCRA).
  *
  * - Palette: default | purple-white | red-white (Settings > Appearance)
  * - Mode: light | dark (toggle)
+ * - High contrast: increases contrast for accessibility (AC-MTTCRA-004.2)
  * - Applies CSS custom properties from ThemeTokens when a branded palette is active
  *
  * Depends on src/theme/tokens.js (window.ThemeTokens).
@@ -18,7 +19,9 @@
 
   var MODE_STORAGE_KEY = "dark-mode";
   var PALETTE_STORAGE_KEY = "theme-palette";
+  var HIGH_CONTRAST_STORAGE_KEY = "theme-high-contrast";
   var DARK_VALUE = "enabled";
+  var HIGH_CONTRAST_VALUE = "enabled";
 
   var PALETTES = {
     DEFAULT: "default",
@@ -60,6 +63,14 @@
     }
   }
 
+  function getHighContrast() {
+    try {
+      return localStorage.getItem(HIGH_CONTRAST_STORAGE_KEY) === HIGH_CONTRAST_VALUE;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function prefersDark() {
     if (typeof window === "undefined" || !window.matchMedia) return false;
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -88,11 +99,23 @@
     }
   }
 
-  function dispatchThemeChange(doc, mode, palette) {
+  function applyHighContrastAttribute(doc, enabled) {
+    if (!doc || !doc.documentElement) return;
+    doc.documentElement.setAttribute(
+      "data-high-contrast",
+      enabled ? "true" : "false"
+    );
+  }
+
+  function dispatchThemeChange(doc, mode, palette, highContrast) {
     if (!doc.body || !doc.body.dispatchEvent) return;
     doc.body.dispatchEvent(
       new CustomEvent("themechange", {
-        detail: { mode: mode, palette: palette },
+        detail: {
+          mode: mode,
+          palette: palette,
+          highContrast: !!highContrast,
+        },
       })
     );
   }
@@ -100,7 +123,7 @@
   /**
    * Apply light/dark mode.
    * @param {"light"|"dark"} mode
-   * @param {{ persist?: boolean, toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
+   * @param {{ persist?: boolean, toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null, highContrastToggle?: HTMLInputElement|null }} [opts]
    */
   function setMode(mode, opts) {
     var doc = getDocument();
@@ -110,10 +133,12 @@
     var persist = !opts || opts.persist !== false;
     var toggleBtn = opts && opts.toggleBtn;
     var palette = getPalette();
+    var highContrast = getHighContrast();
 
     doc.body.classList.remove("dark-mode", "light-mode");
     doc.body.classList.add(resolved === "dark" ? "dark-mode" : "light-mode");
     doc.documentElement.setAttribute("data-theme", resolved);
+    applyHighContrastAttribute(doc, highContrast);
 
     applyTokensForMode(doc, resolved, palette);
 
@@ -132,7 +157,7 @@
       toggleBtn.checked = resolved === "dark";
     }
 
-    dispatchThemeChange(doc, resolved, palette);
+    dispatchThemeChange(doc, resolved, palette, highContrast);
     return resolved;
   }
 
@@ -140,7 +165,7 @@
    * Apply theme palette (default, purple-white, or red-white).
    * Applies immediately without a page reload (AC-MTTCRA-001.2).
    * @param {"default"|"purple-white"|"red-white"} palette
-   * @param {{ persist?: boolean, paletteSelect?: HTMLSelectElement|null, toggleBtn?: HTMLInputElement|null }} [opts]
+   * @param {{ persist?: boolean, paletteSelect?: HTMLSelectElement|null, toggleBtn?: HTMLInputElement|null, highContrastToggle?: HTMLInputElement|null }} [opts]
    */
   function setPalette(palette, opts) {
     var doc = getDocument();
@@ -150,8 +175,10 @@
     var persist = !opts || opts.persist !== false;
     var paletteSelect = opts && opts.paletteSelect;
     var mode = getMode();
+    var highContrast = getHighContrast();
 
     doc.documentElement.setAttribute("data-theme-palette", resolved);
+    applyHighContrastAttribute(doc, highContrast);
     applyTokensForMode(doc, mode, resolved);
 
     if (persist) {
@@ -166,7 +193,45 @@
       paletteSelect.value = resolved;
     }
 
-    dispatchThemeChange(doc, mode, resolved);
+    dispatchThemeChange(doc, mode, resolved, highContrast);
+    return resolved;
+  }
+
+  /**
+   * Enable or disable high-contrast mode (AC-MTTCRA-004.2).
+   * @param {boolean} enabled
+   * @param {{ persist?: boolean, highContrastToggle?: HTMLInputElement|null }} [opts]
+   */
+  function setHighContrast(enabled, opts) {
+    var doc = getDocument();
+    if (!doc || !doc.documentElement) return;
+
+    var resolved = !!enabled;
+    var persist = !opts || opts.persist !== false;
+    var highContrastToggle = opts && opts.highContrastToggle;
+    var mode = getMode();
+    var palette = getPalette();
+
+    applyHighContrastAttribute(doc, resolved);
+
+    if (persist) {
+      try {
+        localStorage.setItem(
+          HIGH_CONTRAST_STORAGE_KEY,
+          resolved ? HIGH_CONTRAST_VALUE : null
+        );
+      } catch (e) {
+        /* ignore */
+      }
+    }
+
+    if (highContrastToggle) {
+      highContrastToggle.checked = resolved;
+    }
+
+    // Re-apply palette tokens so CSS cascade + inline tokens stay aligned
+    applyTokensForMode(doc, mode, palette);
+    dispatchThemeChange(doc, mode, palette, resolved);
     return resolved;
   }
 
@@ -175,14 +240,15 @@
   }
 
   /**
-   * Initialize palette + mode from storage / system preference.
+   * Initialize palette + mode + high contrast from storage / system preference.
    * When no palette has been selected, keeps the default theme (AC-MTTCRA-001.3).
-   * @param {{ toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
+   * @param {{ toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null, highContrastToggle?: HTMLInputElement|null }} [opts]
    */
   function init(opts) {
     var doc = getDocument();
     var storedMode = null;
     var palette = getPalette();
+    var highContrast = getHighContrast();
 
     try {
       storedMode = localStorage.getItem(MODE_STORAGE_KEY);
@@ -203,6 +269,11 @@
       doc.documentElement.setAttribute("data-theme-palette", palette);
     }
 
+    setHighContrast(highContrast, {
+      persist: false,
+      highContrastToggle: opts && opts.highContrastToggle,
+    });
+
     setPalette(palette, {
       persist: false,
       paletteSelect: opts && opts.paletteSelect,
@@ -217,12 +288,15 @@
   return {
     MODE_STORAGE_KEY: MODE_STORAGE_KEY,
     PALETTE_STORAGE_KEY: PALETTE_STORAGE_KEY,
+    HIGH_CONTRAST_STORAGE_KEY: HIGH_CONTRAST_STORAGE_KEY,
     PALETTES: PALETTES,
     PALETTE_LABELS: PALETTE_LABELS,
     getMode: getMode,
     getPalette: getPalette,
+    getHighContrast: getHighContrast,
     setMode: setMode,
     setPalette: setPalette,
+    setHighContrast: setHighContrast,
     toggle: toggle,
     init: init,
   };
