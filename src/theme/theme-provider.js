@@ -1,9 +1,10 @@
 /**
- * Theme provider — centralized theming (WO-03 / REQ-CTTTPA).
+ * Theme provider — centralized theming (REQ-CTTTPA / REQ-CTTCTB).
  *
- * - Palette: default | purple-white (Settings > Appearance)
+ * - Palette: default | purple-white | black-white (Settings > Appearance)
  * - Mode: light | dark (toggle)
- * - Applies CSS custom properties from ThemeTokens when purple-white is active
+ * - Applies CSS custom properties from ThemeTokens when a non-default
+ *   palette is active (purple-white or black-white)
  *
  * Depends on src/theme/tokens.js (window.ThemeTokens).
  */
@@ -23,12 +24,16 @@
   var PALETTES = {
     DEFAULT: "default",
     PURPLE_WHITE: "purple-white",
+    BLACK_WHITE: "black-white",
   };
 
   var PALETTE_LABELS = {
     default: "Default",
     "purple-white": "Purple/White",
+    "black-white": "Black & White",
   };
+
+  var TOKENIZED_PALETTES = [PALETTES.PURPLE_WHITE, PALETTES.BLACK_WHITE];
 
   function getDocument() {
     return typeof document !== "undefined" ? document : null;
@@ -42,11 +47,15 @@
     }
   }
 
+  function normalizePalette(value) {
+    if (value === PALETTES.PURPLE_WHITE) return PALETTES.PURPLE_WHITE;
+    if (value === PALETTES.BLACK_WHITE) return PALETTES.BLACK_WHITE;
+    return PALETTES.DEFAULT;
+  }
+
   function getPalette() {
     try {
-      var stored = localStorage.getItem(PALETTE_STORAGE_KEY);
-      if (stored === PALETTES.PURPLE_WHITE) return PALETTES.PURPLE_WHITE;
-      return PALETTES.DEFAULT;
+      return normalizePalette(localStorage.getItem(PALETTE_STORAGE_KEY));
     } catch (e) {
       return PALETTES.DEFAULT;
     }
@@ -66,11 +75,11 @@
 
   function applyTokensForMode(doc, mode, palette) {
     if (
-      palette === PALETTES.PURPLE_WHITE &&
+      TOKENIZED_PALETTES.indexOf(palette) !== -1 &&
       root.ThemeTokens &&
       typeof root.ThemeTokens.applyToElement === "function"
     ) {
-      root.ThemeTokens.applyToElement(mode, doc.documentElement);
+      root.ThemeTokens.applyToElement(mode, doc.documentElement, palette);
     } else {
       clearInlineTokens(doc);
     }
@@ -125,16 +134,15 @@
   }
 
   /**
-   * Apply theme palette (default or purple-white).
-   * @param {"default"|"purple-white"} palette
+   * Apply theme palette (default, purple-white, or black-white).
+   * @param {"default"|"purple-white"|"black-white"} palette
    * @param {{ persist?: boolean, paletteSelect?: HTMLSelectElement|null, toggleBtn?: HTMLInputElement|null }} [opts]
    */
   function setPalette(palette, opts) {
     var doc = getDocument();
     if (!doc || !doc.body) return;
 
-    var resolved =
-      palette === PALETTES.PURPLE_WHITE ? PALETTES.PURPLE_WHITE : PALETTES.DEFAULT;
+    var resolved = normalizePalette(palette);
     var persist = !opts || opts.persist !== false;
     var paletteSelect = opts && opts.paletteSelect;
     var mode = getMode();
@@ -164,6 +172,7 @@
 
   /**
    * Initialize palette + mode from storage / system preference.
+   * When no palette has been stored, keeps the default color theme.
    * @param {{ toggleBtn?: HTMLInputElement|null, paletteSelect?: HTMLSelectElement|null }} [opts]
    */
   function init(opts) {
