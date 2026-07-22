@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "audit": "node scripts/audit-theme-colors.js",
-    "audit:tokens": "node scripts/audit-theme-colors.js --token-file=theme-tokens.css"
+    "audit:tokens": "node scripts/audit-theme-colors.js --token-file=theme-tokens.css",
+    "audit:contrast": "node scripts/audit-theme-contrast.js --palette=yellow"
   },
   "engines": {
     "node": ">=20"

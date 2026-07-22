@@ -112,12 +112,12 @@
   const yellow = {
     "primary-purple": { light: "#b45309", dark: "#fbbf24" },
     "primary-purple-hover": { light: "#92400e", dark: "#f59e0b" },
-    "primary-purple-deep": { light: "#78350f", dark: "#78350f" },
+    "primary-purple-deep": { light: "#78350f", dark: "#f59e0b" },
     "secondary-purple": { light: "#d97706", dark: "#fcd34d" },
-    "accent-purple": { light: "#f59e0b", dark: "#fde68a" },
+    "accent-purple": { light: "#d97706", dark: "#fde68a" },
     "accent-purple-soft": { light: "#fef3c7", dark: "#92400e" },
 
-    "surface-white": { light: "#ffffff", dark: "#fef3c7" },
+    "surface-white": { light: "#ffffff", dark: "#292524" },
     "surface-white-muted": { light: "#fffbeb", dark: "#1c1917" },
     "surface-glass": {
       light: "rgba(255, 255, 255, 0.45)",
@@ -135,7 +135,7 @@
     },
 
     "text-on-primary": { light: "#ffffff", dark: "#1c1917" },
-    "text-on-surface": { light: "#422006", dark: "#fef3c7" },
+    "text-on-surface": { light: "#422006", dark: "#fffbeb" },
     "text-primary": { light: "#422006", dark: "#fffbeb" },
     "text-secondary": { light: "#78350f", dark: "#fde68a" },
     "text-muted": { light: "#92400e", dark: "#fbbf24" },

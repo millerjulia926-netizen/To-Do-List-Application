@@ -83,7 +83,7 @@ Primary/secondary/accent ambers replace brand colors when `data-theme-palette="y
 | primary-purple-hover | `--primary-purple-hover` | `#92400e` | `#f59e0b` | Hover/active primary |
 | primary-purple-deep | `--primary-purple-deep` | `#78350f` | `#78350f` | Deep amber accents |
 | secondary-purple | `--secondary-purple` | `#d97706` | `#fcd34d` | Secondary actions |
-| accent-purple | `--accent-purple` | `#f59e0b` | `#fde68a` | Highlights, icons |
+| accent-purple | `--accent-purple` | `#d97706` | `#fde68a` | Highlights, icons |
 | accent-purple-soft | `--accent-purple-soft` | `#fef3c7` | `#92400e` | Soft fills, gradient ends |
 
 ## Token catalog — purple/white (AC-CTTTPA-002.2)
@@ -143,5 +143,5 @@ Primary/secondary/accent ambers replace brand colors when `data-theme-palette="y
 - Brand tokens were renamed from `*-blue` to `*-purple` with purple/white values (CTTTPA).
 - Yellow palette (CTCTTY / WO-01) reuses the same CSS variable names with amber values under `data-theme-palette="yellow"`.
 - ThemeProvider / Settings wiring for yellow is follow-on work (WO-02).
-- Contrast audit of yellow pairs is WO-03.
+- Contrast audit of yellow pairs is WO-03 (`npm run audit:contrast` / `scripts/audit-theme-contrast.js`).
 - After full migration, audits should treat `theme-tokens.css` (+ `src/theme/tokens.js`) as the only files allowed to contain raw palette hex/rgb.
