@@ -1,0 +1,1056 @@
+{
+  "scannedAt": "2026-07-22T14:39:57.171Z",
+  "filesScanned": [
+    "theme-tokens.css",
+    "src/theme/tokens.js",
+    "src/theme/theme-provider.js",
+    "style.css",
+    "index.html",
+    "index.js",
+    "scroll.js",
+    "scroll_img.svg"
+  ],
+  "totalOccurrences": 229,
+  "uniqueColors": 92,
+  "huedColorCount": 82,
+  "grayscaleColorCount": 10,
+  "byFile": {
+    "theme-tokens.css": 152,
+    "src/theme/tokens.js": 76,
+    "style.css": 1
+  },
+  "uniqueCssVariablesDefined": [
+    "--accent-purple",
+    "--accent-purple-soft",
+    "--bg-overlay",
+    "--bg-page-end",
+    "--bg-page-start",
+    "--border-accent",
+    "--border-muted",
+    "--danger-bg",
+    "--danger-border",
+    "--danger-text",
+    "--focus-ring",
+    "--neutral-100",
+    "--neutral-200",
+    "--neutral-400",
+    "--neutral-50",
+    "--neutral-600",
+    "--neutral-800",
+    "--neutral-900",
+    "--primary-purple",
+    "--primary-purple-deep",
+    "--primary-purple-hover",
+    "--priority-done",
+    "--priority-high",
+    "--priority-low",
+    "--priority-medium",
+    "--secondary-purple",
+    "--success-bg",
+    "--success-border",
+    "--success-text",
+    "--surface-card",
+    "--surface-glass",
+    "--surface-white",
+    "--surface-white-muted",
+    "--text-muted",
+    "--text-on-primary",
+    "--text-on-surface",
+    "--text-primary",
+    "--text-secondary"
+  ],
+  "uniqueCssVariablesUsed": [
+    "--accent-purple",
+    "--accent-purple-soft",
+    "--bg-overlay",
+    "--bg-page-end",
+    "--bg-page-start",
+    "--border-accent",
+    "--border-muted",
+    "--danger-bg",
+    "--danger-border",
+    "--danger-text",
+    "--focus-ring",
+    "--neutral-100",
+    "--neutral-200",
+    "--neutral-400",
+    "--neutral-600",
+    "--neutral-800",
+    "--neutral-900",
+    "--primary-purple",
+    "--primary-purple-deep",
+    "--primary-purple-hover",
+    "--priority-done",
+    "--priority-high",
+    "--priority-low",
+    "--priority-medium",
+    "--secondary-purple",
+    "--success-bg",
+    "--success-border",
+    "--success-text",
+    "--surface-card",
+    "--surface-glass",
+    "--surface-white",
+    "--surface-white-muted",
+    "--text-muted",
+    "--text-on-primary",
+    "--text-on-surface",
+    "--text-primary",
+    "--text-secondary"
+  ],
+  "tokenFile": "theme-tokens.css",
+  "hardcodedOutsideTokenFile": 1,
+  "violations": [
+    {
+      "file": "style.css",
+      "line": 1159,
+      "value": "rgba(0, 0, 0, 0.12)",
+      "column": 27,
+      "hasHue": false
+    }
+  ],
+  "colors": [
+    {
+      "value": "#ffffff",
+      "count": 12,
+      "locations": [
+        "theme-tokens.css:21",
+        "theme-tokens.css:25",
+        "theme-tokens.css:29",
+        "theme-tokens.css:75",
+        "theme-tokens.css:115",
+        "theme-tokens.css:119",
+        "theme-tokens.css:123",
+        "theme-tokens.css:169",
+        "src/theme/tokens.js:35",
+        "src/theme/tokens.js:45"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "#a78bfa",
+      "count": 8,
+      "locations": [
+        "theme-tokens.css:112",
+        "theme-tokens.css:154",
+        "theme-tokens.css:173",
+        "theme-tokens.css:179",
+        "src/theme/tokens.js:27",
+        "src/theme/tokens.js:31",
+        "src/theme/tokens.js:57",
+        "src/theme/tokens.js:64"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#1e1b4b",
+      "count": 8,
+      "locations": [
+        "theme-tokens.css:124",
+        "theme-tokens.css:125",
+        "theme-tokens.css:162",
+        "theme-tokens.css:165",
+        "src/theme/tokens.js:36",
+        "src/theme/tokens.js:45",
+        "src/theme/tokens.js:54",
+        "src/theme/tokens.js:55"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#4c1d95",
+      "count": 6,
+      "locations": [
+        "theme-tokens.css:110",
+        "theme-tokens.css:166",
+        "theme-tokens.css:177",
+        "src/theme/tokens.js:29",
+        "src/theme/tokens.js:46",
+        "src/theme/tokens.js:62"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f5f3ff",
+      "count": 6,
+      "locations": [
+        "theme-tokens.css:161",
+        "theme-tokens.css:171",
+        "theme-tokens.css:181",
+        "src/theme/tokens.js:35",
+        "src/theme/tokens.js:55",
+        "src/theme/tokens.js:66"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f8f9fa",
+      "count": 5,
+      "locations": [
+        "theme-tokens.css:22",
+        "theme-tokens.css:35",
+        "theme-tokens.css:76",
+        "theme-tokens.css:77",
+        "theme-tokens.css:87"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "#f5c2c7",
+      "count": 5,
+      "locations": [
+        "theme-tokens.css:100",
+        "theme-tokens.css:150",
+        "theme-tokens.css:194",
+        "src/theme/tokens.js:102",
+        "src/theme/tokens.js:104"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#842029",
+      "count": 5,
+      "locations": [
+        "theme-tokens.css:102",
+        "theme-tokens.css:148",
+        "theme-tokens.css:196",
+        "src/theme/tokens.js:102",
+        "src/theme/tokens.js:104"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#212529",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:30",
+        "theme-tokens.css:31",
+        "theme-tokens.css:68",
+        "theme-tokens.css:71"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6c757d",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:32",
+        "theme-tokens.css:33",
+        "theme-tokens.css:39",
+        "theme-tokens.css:83"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#7c3aed",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:108",
+        "theme-tokens.css:178",
+        "src/theme/tokens.js:27",
+        "src/theme/tokens.js:63"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6d28d9",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:109",
+        "theme-tokens.css:159",
+        "src/theme/tokens.js:28",
+        "src/theme/tokens.js:32"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#ddd6fe",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:113",
+        "theme-tokens.css:180",
+        "src/theme/tokens.js:32",
+        "src/theme/tokens.js:65"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#ede9fe",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:120",
+        "theme-tokens.css:170",
+        "src/theme/tokens.js:46",
+        "src/theme/tokens.js:54"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6b7280",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:127",
+        "theme-tokens.css:133",
+        "src/theme/tokens.js:57",
+        "src/theme/tokens.js:64"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#2e1065",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:156",
+        "theme-tokens.css:175",
+        "src/theme/tokens.js:29",
+        "src/theme/tokens.js:60"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#c4b5fd",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:158",
+        "theme-tokens.css:172",
+        "src/theme/tokens.js:31",
+        "src/theme/tokens.js:56"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.45)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:23",
+        "theme-tokens.css:117",
+        "src/theme/tokens.js:38"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.54)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:24",
+        "theme-tokens.css:118",
+        "src/theme/tokens.js:42"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.5)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:27",
+        "theme-tokens.css:121",
+        "src/theme/tokens.js:48"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "#adb5bd",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:38",
+        "theme-tokens.css:78",
+        "theme-tokens.css:85"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#343a40",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:40",
+        "theme-tokens.css:72",
+        "theme-tokens.css:81"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.18)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:44",
+        "theme-tokens.css:138",
+        "src/theme/tokens.js:74"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "rgba(255, 0, 0, 0.47)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:47",
+        "theme-tokens.css:141",
+        "src/theme/tokens.js:84"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 166, 0, 0.45)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:48",
+        "theme-tokens.css:142",
+        "src/theme/tokens.js:88"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(0, 128, 0, 0.47)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:49",
+        "theme-tokens.css:143",
+        "src/theme/tokens.js:92"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f8d7da",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:55",
+        "theme-tokens.css:149",
+        "src/theme/tokens.js:103"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(1, 1, 1, 0.85)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:73",
+        "theme-tokens.css:167",
+        "src/theme/tokens.js:49"
+      ],
+      "hasHue": false
+    },
+    {
+      "value": "rgba(255, 82, 82, 0.74)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:93",
+        "theme-tokens.css:187",
+        "src/theme/tokens.js:85"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 167, 38, 0.87)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:94",
+        "theme-tokens.css:188",
+        "src/theme/tokens.js:89"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(0, 189, 0, 0.8)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:95",
+        "theme-tokens.css:189",
+        "src/theme/tokens.js:93"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#a3d9b1",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:97",
+        "theme-tokens.css:191",
+        "src/theme/tokens.js:99"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#1b4332",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:98",
+        "theme-tokens.css:192",
+        "src/theme/tokens.js:100"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#2d6a4f",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:99",
+        "theme-tokens.css:193",
+        "src/theme/tokens.js:101"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#4a1520",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:101",
+        "theme-tokens.css:195",
+        "src/theme/tokens.js:103"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#e9ecef",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:36",
+        "theme-tokens.css:67"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#dee2e6",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:37",
+        "theme-tokens.css:86"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#868e96",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:79",
+        "theme-tokens.css:84"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#9333ea",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:111",
+        "src/theme/tokens.js:30"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#faf5ff",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:116",
+        "src/theme/tokens.js:36"
+      ],
+      "hasHue": true
+    }
+  ],
+  "huedColors": [
+    {
+      "value": "#a78bfa",
+      "count": 8,
+      "locations": [
+        "theme-tokens.css:112",
+        "theme-tokens.css:154",
+        "theme-tokens.css:173",
+        "theme-tokens.css:179",
+        "src/theme/tokens.js:27",
+        "src/theme/tokens.js:31",
+        "src/theme/tokens.js:57",
+        "src/theme/tokens.js:64"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#1e1b4b",
+      "count": 8,
+      "locations": [
+        "theme-tokens.css:124",
+        "theme-tokens.css:125",
+        "theme-tokens.css:162",
+        "theme-tokens.css:165",
+        "src/theme/tokens.js:36",
+        "src/theme/tokens.js:45",
+        "src/theme/tokens.js:54",
+        "src/theme/tokens.js:55"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#4c1d95",
+      "count": 6,
+      "locations": [
+        "theme-tokens.css:110",
+        "theme-tokens.css:166",
+        "theme-tokens.css:177",
+        "src/theme/tokens.js:29",
+        "src/theme/tokens.js:46",
+        "src/theme/tokens.js:62"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f5f3ff",
+      "count": 6,
+      "locations": [
+        "theme-tokens.css:161",
+        "theme-tokens.css:171",
+        "theme-tokens.css:181",
+        "src/theme/tokens.js:35",
+        "src/theme/tokens.js:55",
+        "src/theme/tokens.js:66"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f5c2c7",
+      "count": 5,
+      "locations": [
+        "theme-tokens.css:100",
+        "theme-tokens.css:150",
+        "theme-tokens.css:194",
+        "src/theme/tokens.js:102",
+        "src/theme/tokens.js:104"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#842029",
+      "count": 5,
+      "locations": [
+        "theme-tokens.css:102",
+        "theme-tokens.css:148",
+        "theme-tokens.css:196",
+        "src/theme/tokens.js:102",
+        "src/theme/tokens.js:104"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#212529",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:30",
+        "theme-tokens.css:31",
+        "theme-tokens.css:68",
+        "theme-tokens.css:71"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6c757d",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:32",
+        "theme-tokens.css:33",
+        "theme-tokens.css:39",
+        "theme-tokens.css:83"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#7c3aed",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:108",
+        "theme-tokens.css:178",
+        "src/theme/tokens.js:27",
+        "src/theme/tokens.js:63"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6d28d9",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:109",
+        "theme-tokens.css:159",
+        "src/theme/tokens.js:28",
+        "src/theme/tokens.js:32"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#ddd6fe",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:113",
+        "theme-tokens.css:180",
+        "src/theme/tokens.js:32",
+        "src/theme/tokens.js:65"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#ede9fe",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:120",
+        "theme-tokens.css:170",
+        "src/theme/tokens.js:46",
+        "src/theme/tokens.js:54"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#6b7280",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:127",
+        "theme-tokens.css:133",
+        "src/theme/tokens.js:57",
+        "src/theme/tokens.js:64"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#2e1065",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:156",
+        "theme-tokens.css:175",
+        "src/theme/tokens.js:29",
+        "src/theme/tokens.js:60"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#c4b5fd",
+      "count": 4,
+      "locations": [
+        "theme-tokens.css:158",
+        "theme-tokens.css:172",
+        "src/theme/tokens.js:31",
+        "src/theme/tokens.js:56"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#adb5bd",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:38",
+        "theme-tokens.css:78",
+        "theme-tokens.css:85"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#343a40",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:40",
+        "theme-tokens.css:72",
+        "theme-tokens.css:81"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 0, 0, 0.47)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:47",
+        "theme-tokens.css:141",
+        "src/theme/tokens.js:84"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 166, 0, 0.45)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:48",
+        "theme-tokens.css:142",
+        "src/theme/tokens.js:88"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(0, 128, 0, 0.47)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:49",
+        "theme-tokens.css:143",
+        "src/theme/tokens.js:92"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f8d7da",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:55",
+        "theme-tokens.css:149",
+        "src/theme/tokens.js:103"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 82, 82, 0.74)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:93",
+        "theme-tokens.css:187",
+        "src/theme/tokens.js:85"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(255, 167, 38, 0.87)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:94",
+        "theme-tokens.css:188",
+        "src/theme/tokens.js:89"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(0, 189, 0, 0.8)",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:95",
+        "theme-tokens.css:189",
+        "src/theme/tokens.js:93"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#a3d9b1",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:97",
+        "theme-tokens.css:191",
+        "src/theme/tokens.js:99"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#1b4332",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:98",
+        "theme-tokens.css:192",
+        "src/theme/tokens.js:100"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#2d6a4f",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:99",
+        "theme-tokens.css:193",
+        "src/theme/tokens.js:101"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#4a1520",
+      "count": 3,
+      "locations": [
+        "theme-tokens.css:101",
+        "theme-tokens.css:195",
+        "src/theme/tokens.js:103"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#e9ecef",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:36",
+        "theme-tokens.css:67"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#dee2e6",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:37",
+        "theme-tokens.css:86"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#868e96",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:79",
+        "theme-tokens.css:84"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#9333ea",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:111",
+        "src/theme/tokens.js:30"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#faf5ff",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:116",
+        "src/theme/tokens.js:36"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#5b5675",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:126",
+        "src/theme/tokens.js:56"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#f3f4f6",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:130",
+        "src/theme/tokens.js:61"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#e5e7eb",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:131",
+        "src/theme/tokens.js:62"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#9ca3af",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:132",
+        "src/theme/tokens.js:63"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#374151",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:134",
+        "src/theme/tokens.js:65"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#111827",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:135",
+        "src/theme/tokens.js:66"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(91, 86, 117, 0.35)",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:137",
+        "src/theme/tokens.js:70"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(124, 58, 237, 0.85)",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:139",
+        "src/theme/tokens.js:78"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(124, 58, 237, 0.55)",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:144",
+        "src/theme/tokens.js:96"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#0f5132",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:145",
+        "src/theme/tokens.js:99"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#d1e7dd",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:146",
+        "src/theme/tokens.js:100"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#badbcc",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:147",
+        "src/theme/tokens.js:101"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#8b5cf6",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:155",
+        "src/theme/tokens.js:28"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#c084fc",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:157",
+        "src/theme/tokens.js:30"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(46, 16, 101, 0.45)",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:163",
+        "src/theme/tokens.js:39"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "rgba(30, 27, 75, 0.92)",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:164",
+        "src/theme/tokens.js:43"
+      ],
+      "hasHue": true
+    },
+    {
+      "value": "#3b0764",
+      "count": 2,
+      "locations": [
+        "theme-tokens.css:176",
+        "src/theme/tokens.js:61"
+      ],
+      "hasHue": true
+    }
+  ]
+}
