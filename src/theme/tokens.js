@@ -79,6 +79,10 @@
       light: "rgba(124, 58, 237, 0.85)",
       dark: "rgba(167, 139, 250, 0.85)",
     },
+    "shadow-panel": {
+      light: "rgba(30, 27, 75, 0.2)",
+      dark: "rgba(0, 0, 0, 0.5)",
+    },
 
     "priority-high": {
       light: "rgba(255, 0, 0, 0.47)",
@@ -159,6 +163,10 @@
     "focus-ring": {
       light: "rgba(17, 17, 17, 0.85)",
       dark: "rgba(245, 245, 245, 0.85)",
+    },
+    "shadow-panel": {
+      light: "rgba(0, 0, 0, 0.18)",
+      dark: "rgba(0, 0, 0, 0.55)",
     },
 
     "priority-high": {

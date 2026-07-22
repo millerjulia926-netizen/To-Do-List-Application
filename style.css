@@ -27,6 +27,7 @@ body {
     var(--bg-page-end) 100.2%
   );
   color: var(--text-primary);
+  transition: background 0.35s ease, color 0.25s ease;
 }
 
 .dark-mode .content-container{
@@ -1156,7 +1157,7 @@ li {
   z-index: 1050;
   background: var(--surface-white);
   border-left: 2px solid var(--border-muted);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  box-shadow: -4px 0 24px var(--shadow-panel);
   padding: 1.25rem 1.5rem;
   overflow-y: auto;
 }
@@ -1252,6 +1253,81 @@ li {
   color: var(--text-on-primary);
   background-color: var(--primary-purple);
   border-color: var(--primary-purple);
+}
+
+/* Confirm / danger / success actions — tokenized so Black & White stays monochrome */
+.btn-outline-success:not(.addbtn):not(#submitBtn),
+#confirm-yes.btn-outline-success,
+#duplicate-ok.btn-outline-success,
+#confirm-yes-all.btn-outline-success {
+  color: var(--success-text);
+  background-color: transparent;
+  border-color: var(--success-border);
+}
+
+.btn-outline-success:not(.addbtn):not(#submitBtn):hover,
+#confirm-yes.btn-outline-success:hover,
+#duplicate-ok.btn-outline-success:hover,
+#confirm-yes-all.btn-outline-success:hover {
+  color: var(--text-on-primary);
+  background-color: var(--neutral-800);
+  border-color: var(--neutral-800);
+}
+
+.btn-outline-danger,
+#confirm-no.btn-outline-danger,
+#confirm-no-all.btn-outline-danger,
+#clearAllTasks.btn-outline-danger {
+  color: var(--danger-text);
+  background-color: transparent;
+  border-color: var(--danger-border);
+}
+
+.btn-outline-danger:hover,
+#confirm-no.btn-outline-danger:hover,
+#confirm-no-all.btn-outline-danger:hover,
+#clearAllTasks.btn-outline-danger:hover {
+  color: var(--text-on-primary);
+  background-color: var(--neutral-900);
+  border-color: var(--neutral-900);
+}
+
+.btn-outline-dark {
+  color: var(--text-primary);
+  background-color: transparent;
+  border-color: var(--neutral-800);
+}
+
+.btn-outline-dark:hover {
+  color: var(--text-on-primary);
+  background-color: var(--neutral-900);
+  border-color: var(--neutral-900);
+}
+
+/* Layout chrome inherits palette tokens under Black & White */
+html[data-theme-palette="black-white"] body,
+html[data-theme-palette="black-white"] .content-container,
+html[data-theme-palette="black-white"] .footer-down,
+html[data-theme-palette="black-white"] .main,
+html[data-theme-palette="black-white"] .preloader {
+  transition: background 0.35s ease, color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+html[data-theme-palette="black-white"] .titleText,
+html[data-theme-palette="black-white"] .github-icon a i,
+html[data-theme-palette="black-white"] .settings-toggle {
+  color: var(--text-primary);
+}
+
+html[data-theme-palette="black-white"] .settings-toggle {
+  border-color: var(--border-muted);
+  background: var(--surface-glass);
+}
+
+html[data-theme-palette="black-white"] .settings-toggle:hover {
+  background: var(--surface-white);
+  border-color: var(--neutral-800);
 }
 
 .sun svg {
