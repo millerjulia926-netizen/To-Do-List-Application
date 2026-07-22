@@ -1,10 +1,11 @@
 /**
- * Centralized theme tokens (WO-02 / WO-03 / REQ-CTTTPA).
+ * Centralized theme tokens (REQ-CTTTPA / REQ-CTTCTB).
  *
- * Default palette on :root; purple/white overrides when
- * html[data-theme-palette="purple-white"] is set by ThemeProvider.
+ * Default palette on :root; palette overrides when
+ * html[data-theme-palette="purple-white"] or
+ * html[data-theme-palette="black-white"] is set by ThemeProvider.
  *
- * Values must stay aligned with src/theme/tokens.js (purple/white palette).
+ * Values must stay aligned with src/theme/tokens.js.
  * See docs/theme-tokens.md for the developer-facing catalog.
  */
 
@@ -194,4 +195,98 @@ html[data-theme-palette="purple-white"] body.dark-mode {
   --danger-text: #f5c2c7;
   --danger-bg: #4a1520;
   --danger-border: #842029;
+}
+
+/* ── Black & white palette (CTTCTB) — grayscale only, no hues ── */
+html[data-theme-palette="black-white"],
+html[data-theme-palette="black-white"] body.light-mode {
+  --primary-purple: #111111;
+  --primary-purple-hover: #000000;
+  --primary-purple-deep: #000000;
+  --secondary-purple: #404040;
+  --accent-purple: #737373;
+  --accent-purple-soft: #e5e5e5;
+
+  --surface-white: #ffffff;
+  --surface-white-muted: #f5f5f5;
+  --surface-glass: rgba(255, 255, 255, 0.55);
+  --surface-card: rgba(255, 255, 255, 0.72);
+  --bg-page-start: #ffffff;
+  --bg-page-end: #e5e5e5;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  --text-on-primary: #ffffff;
+  --text-on-surface: #111111;
+  --text-primary: #111111;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-400: #a3a3a3;
+  --neutral-600: #737373;
+  --neutral-800: #404040;
+  --neutral-900: #171717;
+
+  --border-muted: rgba(64, 64, 64, 0.35);
+  --border-accent: rgba(255, 255, 255, 0.2);
+  --focus-ring: rgba(17, 17, 17, 0.85);
+
+  --priority-high: rgba(0, 0, 0, 0.72);
+  --priority-medium: rgba(64, 64, 64, 0.55);
+  --priority-low: rgba(163, 163, 163, 0.55);
+  --priority-done: rgba(17, 17, 17, 0.55);
+  --success-text: #171717;
+  --success-bg: #e5e5e5;
+  --success-border: #a3a3a3;
+  --danger-text: #000000;
+  --danger-bg: #f5f5f5;
+  --danger-border: #737373;
+}
+
+html[data-theme-palette="black-white"] body.dark-mode {
+  --primary-purple: #f5f5f5;
+  --primary-purple-hover: #ffffff;
+  --primary-purple-deep: #d4d4d4;
+  --secondary-purple: #a3a3a3;
+  --accent-purple: #d4d4d4;
+  --accent-purple-soft: #404040;
+
+  --surface-white: #e5e5e5;
+  --surface-white-muted: #171717;
+  --surface-glass: rgba(23, 23, 23, 0.55);
+  --surface-card: rgba(23, 23, 23, 0.92);
+  --bg-page-start: #0a0a0a;
+  --bg-page-end: #262626;
+  --bg-overlay: rgba(0, 0, 0, 0.85);
+
+  --text-on-primary: #000000;
+  --text-on-surface: #f5f5f5;
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+
+  --neutral-50: #262626;
+  --neutral-100: #404040;
+  --neutral-200: #525252;
+  --neutral-400: #737373;
+  --neutral-600: #a3a3a3;
+  --neutral-800: #e5e5e5;
+  --neutral-900: #fafafa;
+
+  --border-muted: rgba(163, 163, 163, 0.55);
+  --border-accent: rgba(212, 212, 212, 0.35);
+  --focus-ring: rgba(245, 245, 245, 0.85);
+
+  --priority-high: rgba(255, 255, 255, 0.85);
+  --priority-medium: rgba(212, 212, 212, 0.7);
+  --priority-low: rgba(115, 115, 115, 0.7);
+  --priority-done: rgba(245, 245, 245, 0.75);
+  --success-text: #f5f5f5;
+  --success-bg: #262626;
+  --success-border: #525252;
+  --danger-text: #ffffff;
+  --danger-bg: #171717;
+  --danger-border: #737373;
 }
