@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 /**
- * Theme / color usage auditor for the To-Do List app (WO-01 / REQ-CTTTPA).
+ * Theme / color usage auditor for the To-Do List app (REQ-CTTCTB / prior CTTTPA).
  *
  * Scans CSS/HTML/JS/SVG for hardcoded colors and CSS custom properties.
- * After a centralized token file exists (WO-02+), pass --token-file to
+ * After a centralized token file exists, pass --token-file to
  * enforce zero hardcoded hex/rgb outside that file.
+ *
+ * Pass --flag-hues to list non-grayscale (hued) colors — migration
+ * targets for the black-and-white (monochrome) palette.
  *
  * Usage:
  *   node scripts/audit-theme-colors.js
  *   node scripts/audit-theme-colors.js --token-file=theme-tokens.css
+ *   node scripts/audit-theme-colors.js --flag-hues
  *   node scripts/audit-theme-colors.js --json
  *   node scripts/audit-theme-colors.js --write=docs/theme-color-audit.snapshot.json
  */
@@ -39,10 +43,12 @@ function parseArgs(argv) {
     json: false,
     tokenFile: null,
     write: null,
+    flagHues: false,
     targets: DEFAULT_TARGETS,
   };
   for (const arg of argv) {
     if (arg === "--json") opts.json = true;
+    else if (arg === "--flag-hues") opts.flagHues = true;
     else if (arg.startsWith("--token-file=")) opts.tokenFile = arg.slice(13);
     else if (arg.startsWith("--write=")) opts.write = arg.slice(8);
   }
@@ -55,6 +61,101 @@ function isFalsePositive(line, matchIndex, value) {
     return true;
   }
   return false;
+}
+
+/**
+ * Parse a color string into {r,g,b,a} or null if unparseable.
+ * @param {string} value
+ * @returns {{r:number,g:number,b:number,a:number}|null}
+ */
+function parseColorChannels(value) {
+  const v = value.trim().toLowerCase();
+  if (v.startsWith("#")) {
+    let hex = v.slice(1);
+    if (hex.length === 3 || hex.length === 4) {
+      hex = hex
+        .slice(0, 3)
+        .split("")
+        .map((c) => c + c)
+        .join("");
+    } else if (hex.length === 8) {
+      hex = hex.slice(0, 6);
+    }
+    if (hex.length !== 6 || /[^0-9a-f]/.test(hex)) return null;
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16),
+      a: 1,
+    };
+  }
+  const rgb = v.match(
+    /^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)$/
+  );
+  if (rgb) {
+    return {
+      r: Number(rgb[1]),
+      g: Number(rgb[2]),
+      b: Number(rgb[3]),
+      a: rgb[4] !== undefined ? Number(rgb[4]) : 1,
+    };
+  }
+  const hsl = v.match(
+    /^hsla?\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%(?:\s*,\s*([\d.]+))?\s*\)$/
+  );
+  if (hsl) {
+    const h = Number(hsl[1]);
+    const s = Number(hsl[2]) / 100;
+    const l = Number(hsl[3]) / 100;
+    const a = hsl[4] !== undefined ? Number(hsl[4]) : 1;
+    // Convert HSL → RGB for hue check
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    const m = l - c / 2;
+    let rp = 0;
+    let gp = 0;
+    let bp = 0;
+    if (h < 60) {
+      rp = c;
+      gp = x;
+    } else if (h < 120) {
+      rp = x;
+      gp = c;
+    } else if (h < 180) {
+      gp = c;
+      bp = x;
+    } else if (h < 240) {
+      gp = x;
+      bp = c;
+    } else if (h < 300) {
+      rp = x;
+      bp = c;
+    } else {
+      rp = c;
+      bp = x;
+    }
+    return {
+      r: Math.round((rp + m) * 255),
+      g: Math.round((gp + m) * 255),
+      b: Math.round((bp + m) * 255),
+      a,
+    };
+  }
+  return null;
+}
+
+/**
+ * True when the color has a perceptible hue (not grayscale / pure black-white).
+ * Allows a small channel delta for rounding.
+ * @param {string} value
+ * @returns {boolean}
+ */
+function hasHue(value) {
+  const ch = parseColorChannels(value);
+  if (!ch) return false;
+  const max = Math.max(ch.r, ch.g, ch.b);
+  const min = Math.min(ch.r, ch.g, ch.b);
+  return max - min > 2;
 }
 
 function scanFile(relPath) {
@@ -79,6 +180,7 @@ function scanFile(relPath) {
         line: i + 1,
         value: m[0],
         column: m.index + 1,
+        hasHue: hasHue(m[0]),
       });
     }
   });
@@ -108,7 +210,12 @@ function summarize(results, tokenFile) {
   for (const c of colors) {
     const key = c.value.toLowerCase().replace(/\s+/g, "");
     if (!unique.has(key)) {
-      unique.set(key, { value: c.value, count: 0, locations: [] });
+      unique.set(key, {
+        value: c.value,
+        count: 0,
+        locations: [],
+        hasHue: c.hasHue,
+      });
     }
     const entry = unique.get(key);
     entry.count += 1;
@@ -137,6 +244,9 @@ function summarize(results, tokenFile) {
     });
   }
 
+  const huedColors = [...unique.values()].filter((c) => c.hasHue);
+  const grayscaleColors = [...unique.values()].filter((c) => !c.hasHue);
+
   return {
     scannedAt: new Date().toISOString(),
     filesScanned: present.map((r) => r.file),
@@ -152,15 +262,21 @@ function summarize(results, tokenFile) {
     hardcodedOutsideTokenFile: outsideTokenFile.length,
     colors: [...unique.values()].sort((a, b) => b.count - a.count),
     violations: outsideTokenFile,
+    huedColorCount: huedColors.length,
+    grayscaleColorCount: grayscaleColors.length,
+    huedColors: huedColors.sort((a, b) => b.count - a.count),
   };
 }
 
-function printHuman(summary, targets) {
+function printHuman(summary, targets, flagHues) {
   console.log("Theme color audit");
   console.log("=================");
   console.log(`Scanned: ${targets.join(", ")}`);
   console.log(`Total color occurrences: ${summary.totalOccurrences}`);
   console.log(`Unique color values: ${summary.uniqueColors}`);
+  console.log(
+    `  Hued (non-grayscale): ${summary.huedColorCount}  |  Grayscale: ${summary.grayscaleColorCount}`
+  );
   console.log(
     `CSS custom property definitions: ${summary.cssVariableDefinitions.length} (${summary.uniqueCssVariablesDefined.length} unique)`
   );
@@ -173,7 +289,21 @@ function printHuman(summary, targets) {
   }
   console.log("\nTop colors:");
   for (const c of summary.colors.slice(0, 25)) {
-    console.log(`  ${c.count}×  ${c.value}  (${c.locations[0]})`);
+    const hueTag = c.hasHue ? " [HUE]" : " [gray]";
+    console.log(`  ${c.count}×  ${c.value}${hueTag}  (${c.locations[0]})`);
+  }
+  if (flagHues) {
+    console.log("\nHued colors (monochrome migration targets):");
+    if (summary.huedColors.length === 0) {
+      console.log("  (none)");
+    } else {
+      for (const c of summary.huedColors.slice(0, 40)) {
+        console.log(`  ${c.count}×  ${c.value}  (${c.locations[0]})`);
+      }
+      if (summary.huedColors.length > 40) {
+        console.log(`  … and ${summary.huedColors.length - 40} more`);
+      }
+    }
   }
   if (summary.tokenFile) {
     console.log(
@@ -210,7 +340,7 @@ function main() {
   if (opts.json) {
     console.log(JSON.stringify(summary, null, 2));
   } else {
-    printHuman(summary, targets);
+    printHuman(summary, targets, opts.flagHues);
   }
 
   if (opts.tokenFile && summary.hardcodedOutsideTokenFile > 0) {
