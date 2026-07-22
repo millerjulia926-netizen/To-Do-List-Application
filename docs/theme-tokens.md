@@ -69,6 +69,8 @@ ThemeProvider.init({ toggleBtn, paletteSelect });
 
 Storage keys: `theme-palette` (`default` | `purple-white` | `yellow`), `dark-mode` (`enabled` | null).
 
+Yellow is selectable in Settings → Appearance. `ThemeProvider.setPalette("yellow")` sets `data-theme-palette="yellow"` and applies JS tokens so base styles (`style.css` via `var(--*)`) render amber chrome immediately and on reload.
+
 ## Token catalog — yellow (WO-01 / REQ-CTCTTY)
 
 Primary/secondary/accent ambers replace brand colors when `data-theme-palette="yellow"`. Token **names** stay `*-purple` for CSS compatibility; **values** are yellow/amber.

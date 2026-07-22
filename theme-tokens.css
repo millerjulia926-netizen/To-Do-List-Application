@@ -44,6 +44,7 @@ body.light-mode {
   --border-muted: rgba(73, 80, 87, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(0, 123, 255, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.12);
 
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
@@ -90,6 +91,7 @@ body.dark-mode {
   --border-muted: rgba(173, 181, 189, 0.55);
   --border-accent: rgba(116, 192, 252, 0.65);
   --focus-ring: rgba(77, 171, 247, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
 
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
@@ -138,6 +140,7 @@ html[data-theme-palette="purple-white"] body.light-mode {
   --border-muted: rgba(91, 86, 117, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(124, 58, 237, 0.85);
+  --shadow-elevated: rgba(30, 27, 75, 0.18);
 
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
@@ -184,6 +187,7 @@ html[data-theme-palette="purple-white"] body.dark-mode {
   --border-muted: rgba(167, 139, 250, 0.55);
   --border-accent: rgba(196, 181, 253, 0.65);
   --focus-ring: rgba(167, 139, 250, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
 
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
@@ -233,6 +237,7 @@ html[data-theme-palette="yellow"] body.light-mode {
   --border-muted: rgba(120, 53, 15, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(180, 83, 9, 0.85);
+  --shadow-elevated: rgba(66, 32, 6, 0.16);
 
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
@@ -279,6 +284,7 @@ html[data-theme-palette="yellow"] body.dark-mode {
   --border-muted: rgba(251, 191, 36, 0.55);
   --border-accent: rgba(253, 230, 138, 0.65);
   --focus-ring: rgba(251, 191, 36, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
 
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
