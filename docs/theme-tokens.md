@@ -1,6 +1,6 @@
-# Purple/white design tokens (WO-02)
+# Design tokens (purple/white + black & white)
 
-Centralized palette for the To-Do List app (`REQ-CTTTPA-002`).  
+Centralized palettes for the To-Do List app (`REQ-CTTTPA` / `REQ-CTTCTB`).  
 **Sources of truth:**
 
 | Layer | Path |
@@ -14,18 +14,18 @@ Update both when changing a color. Prefer `var(--token-name)` in CSS and `ThemeT
 
 | Pattern | Example | Use |
 |---------|---------|-----|
-| `primary-purple` | `--primary-purple` | Main brand purple for buttons, borders, key chrome |
+| `primary-purple` | `--primary-purple` | Main brand / primary actions (purple or grayscale by palette) |
 | `primary-purple-hover` | `--primary-purple-hover` | Hover / active primary |
-| `primary-purple-deep` | `--primary-purple-deep` | Deep purple accents (e.g. toggle checked) |
+| `primary-purple-deep` | `--primary-purple-deep` | Deep accents (e.g. toggle checked) |
 | `secondary-purple` | `--secondary-purple` | Secondary actions / supporting chrome |
 | `accent-purple` | `--accent-purple` | Highlights, icons, accents |
 | `accent-purple-soft` | `--accent-purple-soft` | Soft fills, gradient ends |
 | `surface-white` | `--surface-white` | Solid white / near-white surfaces |
-| `text-on-primary` | `--text-on-primary` | Text on purple buttons/chrome |
+| `text-on-primary` | `--text-on-primary` | Text on primary buttons/chrome |
 | `neutral-*` | `--neutral-100` … `--neutral-900` | Grayscale ladder |
 | `priority-*` / `success-*` / `danger-*` | `--priority-high` | Semantic status colors |
 
-Primary/secondary buttons should use approved purples with `--text-on-primary` (white).
+Token **names** stay stable across palettes so `style.css` keeps using the same `var(--…)` references.
 
 ## How to use
 
@@ -43,83 +43,72 @@ Primary/secondary buttons should use approved purples with `--text-on-primary` (
 
 ```js
 // Classic script: ThemeTokens is on window after loading src/theme/tokens.js
-ThemeTokens.applyToElement("light"); // optional runtime apply
-const purple = ThemeTokens.palette["primary-purple"].light;
+ThemeTokens.applyToElement("light", document.documentElement, "black-white");
+const mono = ThemeTokens.palettes["black-white"]["primary-purple"].light;
 ```
 
 Light values apply on `:root` / `body.light-mode`. Dark values apply under `body.dark-mode`.
 
-## Theming mechanism (WO-03)
+## Theming mechanism
 
 | Piece | Path | Role |
 |-------|------|------|
-| Token CSS | `theme-tokens.css` | Default palette on `:root`; purple/white overrides under `html[data-theme-palette="purple-white"]` |
-| JS tokens | `src/theme/tokens.js` | Purple/white values for runtime `applyToElement` |
+| Token CSS | `theme-tokens.css` | Default on `:root`; overrides under `data-theme-palette` |
+| JS tokens | `src/theme/tokens.js` | `palettes["purple-white"]` and `palettes["black-white"]` for runtime apply |
 | Provider | `src/theme/theme-provider.js` | Persists palette + mode; sets `data-theme-palette` and `data-theme` |
-| Settings UI | `index.html` → Settings → Appearance | Theme selector: **Default** or **Purple/White** (immediate apply) |
+| Settings UI | `index.html` → Settings → Appearance | Theme selector (Default / Purple/White / Black & White) |
 
 ```js
-ThemeProvider.setPalette("purple-white"); // or "default"
-ThemeProvider.setMode("light");           // or "dark"
+ThemeProvider.setPalette("black-white"); // or "default" | "purple-white"
+ThemeProvider.setMode("light");          // or "dark"
 ThemeProvider.init({ toggleBtn, paletteSelect });
 ```
 
-Storage keys: `theme-palette` (`default` | `purple-white`), `dark-mode` (`enabled` | null).
+Storage keys: `theme-palette` (`default` | `purple-white` | `black-white`), `dark-mode` (`enabled` | null).
 
-## Token catalog (AC-CTTTPA-002.2)
+## Black & white palette (WO-01 / REQ-CTTCTB)
 
-### Brand & actions
+Monochrome values only (equal RGB / neutral grays). No hue. Applied when
+`html[data-theme-palette="black-white"]` is set.
 
-| Token | CSS variable | Light | Dark | Role |
-|-------|--------------|-------|------|------|
-| primary-purple | `--primary-purple` | `#7c3aed` | `#a78bfa` | Primary actions, key chrome |
-| primary-purple-hover | `--primary-purple-hover` | `#6d28d9` | `#8b5cf6` | Hover/active primary |
-| primary-purple-deep | `--primary-purple-deep` | `#4c1d95` | `#2e1065` | Deep purple accents |
-| secondary-purple | `--secondary-purple` | `#9333ea` | `#c084fc` | Secondary actions |
-| accent-purple | `--accent-purple` | `#a78bfa` | `#c4b5fd` | Highlights, icons |
-| accent-purple-soft | `--accent-purple-soft` | `#ddd6fe` | `#6d28d9` | Soft fills, gradient ends |
+### Brand & actions (grayscale)
+
+| Token | Light | Dark | Role |
+|-------|-------|------|------|
+| primary-purple | `#111111` | `#f5f5f5` | Primary actions |
+| primary-purple-hover | `#000000` | `#ffffff` | Hover/active |
+| primary-purple-deep | `#000000` | `#d4d4d4` | Deep accents |
+| secondary-purple | `#404040` | `#a3a3a3` | Secondary actions |
+| accent-purple | `#737373` | `#d4d4d4` | Highlights |
+| accent-purple-soft | `#e5e5e5` | `#404040` | Soft fills |
 
 ### Surfaces & page background
 
-| Token | CSS variable | Light | Dark | Role |
-|-------|--------------|-------|------|------|
-| surface-white | `--surface-white` | `#ffffff` | `#f5f3ff` | Solid white surfaces |
-| surface-white-muted | `--surface-white-muted` | `#faf5ff` | `#1e1b4b` | Subtle panel backgrounds |
-| surface-glass | `--surface-glass` | frosted white | purple glass | Frosted main panel |
-| surface-card | `--surface-card` | frosted white | dark purple card | Cards / elevated panels |
-| bg-page-start | `--bg-page-start` | `#ffffff` | `#1e1b4b` | Page gradient start |
-| bg-page-end | `--bg-page-end` | `#ede9fe` | `#4c1d95` | Page gradient end |
-| bg-overlay | `--bg-overlay` | `rgba(0,0,0,0.5)` | `rgba(1,1,1,0.85)` | Modal overlays |
+| Token | Light | Dark |
+|-------|-------|------|
+| surface-white | `#ffffff` | `#e5e5e5` |
+| surface-white-muted | `#f5f5f5` | `#171717` |
+| bg-page-start | `#ffffff` | `#0a0a0a` |
+| bg-page-end | `#e5e5e5` | `#262626` |
 
-### Text
+### Text & neutrals
 
-| Token | CSS variable | Role |
-|-------|--------------|------|
-| text-on-primary | `--text-on-primary` | Text on purple buttons/chrome |
-| text-on-surface | `--text-on-surface` | Body text on cards |
-| text-primary | `--text-primary` | Default strong text |
-| text-secondary | `--text-secondary` | Supporting copy |
-| text-muted | `--text-muted` | De-emphasized labels |
+| Token | Light | Dark |
+|-------|-------|------|
+| text-primary | `#111111` | `#fafafa` |
+| text-secondary | `#525252` | `#d4d4d4` |
+| text-muted | `#737373` | `#a3a3a3` |
+| neutral-50 … neutral-900 | light gray ladder | inverted gray ladder |
 
-### Neutrals & borders
+Semantic priority/success/danger tokens are also remapped to grayscale under this palette.
 
-| Token | CSS variable | Role |
-|-------|--------------|------|
-| neutral-50 … neutral-900 | `--neutral-*` | Grayscale ladder |
-| border-muted | `--border-muted` | Default borders |
-| border-accent | `--border-accent` | Soft / glass borders |
-| focus-ring | `--focus-ring` | Focus and inset highlights |
+## Purple/white catalog (CTTTPA)
 
-### Semantic (priority & alerts)
-
-| Token | CSS variable | Role |
-|-------|--------------|------|
-| priority-high / medium / low / done | `--priority-*` | Task priority indicators |
-| success-text / bg / border | `--success-*` | Success messages |
-| danger-text / bg / border | `--danger-*` | Error messages |
+See historical purple values in `theme-tokens.css` under
+`html[data-theme-palette="purple-white"]` and `ThemeTokens.palettes["purple-white"]`.
 
 ## Migration notes
 
-- Brand tokens were renamed from `*-blue` to `*-purple` with purple/white values (CTTTPA).
-- Wiring existing `style.css` rules to the new variable names is follow-on theming work (WO-03+).
-- After full migration, audits should treat `theme-tokens.css` as the only file allowed to contain raw palette hex/rgb (AC-CTTTPA-002.3).
+- Brand token **names** remain `*-purple` for compatibility; values swap by palette.
+- Black & white tokens (WO-01) plug into the existing ThemeProvider wiring (WO-03+).
+- After full migration, audits should treat `theme-tokens.css` + `src/theme/tokens.js` as the only files allowed to contain raw palette hex/rgb.
