@@ -1,6 +1,6 @@
-# Purple/white design tokens (WO-02)
+# Design tokens (WO-01 yellow / WO-02 purple-white)
 
-Centralized palette for the To-Do List app (`REQ-CTTTPA-002`).  
+Centralized palettes for the To-Do List app (`REQ-CTCTTY`, `REQ-CTTTPA-002`).  
 **Sources of truth:**
 
 | Layer | Path |
@@ -9,6 +9,8 @@ Centralized palette for the To-Do List app (`REQ-CTTTPA-002`).
 | JS token module | [`src/theme/tokens.js`](../src/theme/tokens.js) |
 
 Update both when changing a color. Prefer `var(--token-name)` in CSS and `ThemeTokens` in JS — do not add new hardcoded hex/rgb values in components.
+
+**Palettes:** `default` (bootstrap blue baseline), `purple-white`, `yellow` (CTCTTY). CSS switches via `html[data-theme-palette]`; JS maps live under `ThemeTokens.palettes`.
 
 ## Naming convention
 
@@ -53,22 +55,40 @@ Light values apply on `:root` / `body.light-mode`. Dark values apply under `body
 
 | Piece | Path | Role |
 |-------|------|------|
-| Token CSS | `theme-tokens.css` | Default palette on `:root`; purple/white overrides under `html[data-theme-palette="purple-white"]` |
-| JS tokens | `src/theme/tokens.js` | Purple/white values for runtime `applyToElement` |
+| Token CSS | `theme-tokens.css` | Default on `:root`; `purple-white` / `yellow` under `html[data-theme-palette]` |
+| JS tokens | `src/theme/tokens.js` | Named palettes for runtime `applyToElement(mode, el, paletteName)` |
 | Provider | `src/theme/theme-provider.js` | Persists palette + mode; sets `data-theme-palette` and `data-theme` |
-| Settings UI | `index.html` → Settings → Appearance | Theme selector: **Default** or **Purple/White** (immediate apply) |
+| Settings UI | `index.html` → Settings → Appearance | Theme selector (wire yellow in WO-02) |
 
 ```js
-ThemeProvider.setPalette("purple-white"); // or "default"
-ThemeProvider.setMode("light");           // or "dark"
+ThemeTokens.applyToElement("light", null, "yellow");
+ThemeProvider.setPalette("yellow"); // after WO-02 wiring
+ThemeProvider.setMode("light");
 ThemeProvider.init({ toggleBtn, paletteSelect });
 ```
 
-Storage keys: `theme-palette` (`default` | `purple-white`), `dark-mode` (`enabled` | null).
+Storage keys: `theme-palette` (`default` | `purple-white` | `yellow`), `dark-mode` (`enabled` | null).
 
-## Token catalog (AC-CTTTPA-002.2)
+Yellow is selectable in Settings → Appearance. `ThemeProvider.setPalette("yellow")` sets `data-theme-palette="yellow"` and applies JS tokens so base styles (`style.css` via `var(--*)`) render amber chrome immediately and on reload.
 
-### Brand & actions
+## Token catalog — yellow (WO-01 / REQ-CTCTTY)
+
+Primary/secondary/accent ambers replace brand colors when `data-theme-palette="yellow"`. Token **names** stay `*-purple` for CSS compatibility; **values** are yellow/amber.
+
+### Brand & actions (yellow)
+
+| Token | CSS variable | Light | Dark | Role |
+|-------|--------------|-------|------|------|
+| primary-purple | `--primary-purple` | `#b45309` | `#fbbf24` | Primary actions, key chrome |
+| primary-purple-hover | `--primary-purple-hover` | `#92400e` | `#f59e0b` | Hover/active primary |
+| primary-purple-deep | `--primary-purple-deep` | `#78350f` | `#78350f` | Deep amber accents |
+| secondary-purple | `--secondary-purple` | `#d97706` | `#fcd34d` | Secondary actions |
+| accent-purple | `--accent-purple` | `#f59e0b` | `#fde68a` | Highlights, icons |
+| accent-purple-soft | `--accent-purple-soft` | `#fef3c7` | `#92400e` | Soft fills, gradient ends |
+
+## Token catalog — purple/white (AC-CTTTPA-002.2)
+
+### Brand & actions (purple/white)
 
 | Token | CSS variable | Light | Dark | Role |
 |-------|--------------|-------|------|------|
@@ -121,5 +141,7 @@ Storage keys: `theme-palette` (`default` | `purple-white`), `dark-mode` (`enable
 ## Migration notes
 
 - Brand tokens were renamed from `*-blue` to `*-purple` with purple/white values (CTTTPA).
-- Wiring existing `style.css` rules to the new variable names is follow-on theming work (WO-03+).
-- After full migration, audits should treat `theme-tokens.css` as the only file allowed to contain raw palette hex/rgb (AC-CTTTPA-002.3).
+- Yellow palette (CTCTTY / WO-01) reuses the same CSS variable names with amber values under `data-theme-palette="yellow"`.
+- ThemeProvider / Settings wiring for yellow is follow-on work (WO-02).
+- Contrast audit of yellow pairs is WO-03.
+- After full migration, audits should treat `theme-tokens.css` (+ `src/theme/tokens.js`) as the only files allowed to contain raw palette hex/rgb.

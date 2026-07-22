@@ -1,10 +1,11 @@
 /**
- * Centralized theme tokens (WO-02 / WO-03 / REQ-CTTTPA).
+ * Centralized theme tokens (WO-01 CTCTTY / WO-02 / WO-03 / REQ-CTTTPA).
  *
- * Default palette on :root; purple/white overrides when
- * html[data-theme-palette="purple-white"] is set by ThemeProvider.
+ * Default palette on :root; palette overrides when
+ * html[data-theme-palette="purple-white"] or html[data-theme-palette="yellow"]
+ * is set by ThemeProvider.
  *
- * Values must stay aligned with src/theme/tokens.js (purple/white palette).
+ * Yellow values must stay aligned with src/theme/tokens.js (yellow palette).
  * See docs/theme-tokens.md for the developer-facing catalog.
  */
 
@@ -43,6 +44,7 @@ body.light-mode {
   --border-muted: rgba(73, 80, 87, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(0, 123, 255, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.12);
 
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
@@ -89,6 +91,7 @@ body.dark-mode {
   --border-muted: rgba(173, 181, 189, 0.55);
   --border-accent: rgba(116, 192, 252, 0.65);
   --focus-ring: rgba(77, 171, 247, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
 
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
@@ -137,6 +140,7 @@ html[data-theme-palette="purple-white"] body.light-mode {
   --border-muted: rgba(91, 86, 117, 0.35);
   --border-accent: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(124, 58, 237, 0.85);
+  --shadow-elevated: rgba(30, 27, 75, 0.18);
 
   --priority-high: rgba(255, 0, 0, 0.47);
   --priority-medium: rgba(255, 166, 0, 0.45);
@@ -183,11 +187,109 @@ html[data-theme-palette="purple-white"] body.dark-mode {
   --border-muted: rgba(167, 139, 250, 0.55);
   --border-accent: rgba(196, 181, 253, 0.65);
   --focus-ring: rgba(167, 139, 250, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
 
   --priority-high: rgba(255, 82, 82, 0.74);
   --priority-medium: rgba(255, 167, 38, 0.87);
   --priority-low: rgba(0, 189, 0, 0.8);
   --priority-done: rgba(167, 139, 250, 0.9);
+  --success-text: #a3d9b1;
+  --success-bg: #1b4332;
+  --success-border: #2d6a4f;
+  --danger-text: #f5c2c7;
+  --danger-bg: #4a1520;
+  --danger-border: #842029;
+}
+
+/* ── Yellow palette (CTCTTY / WO-01) ──
+ * Brand ambers chosen so --text-on-primary (white) meets ~WCAG AA on primary. */
+html[data-theme-palette="yellow"],
+html[data-theme-palette="yellow"] body.light-mode {
+  --primary-purple: #b45309;
+  --primary-purple-hover: #92400e;
+  --primary-purple-deep: #78350f;
+  --secondary-purple: #d97706;
+  --accent-purple: #f59e0b;
+  --accent-purple-soft: #fef3c7;
+
+  --surface-white: #ffffff;
+  --surface-white-muted: #fffbeb;
+  --surface-glass: rgba(255, 255, 255, 0.45);
+  --surface-card: rgba(255, 255, 255, 0.54);
+  --bg-page-start: #ffffff;
+  --bg-page-end: #fef9c3;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  --text-on-primary: #ffffff;
+  --text-on-surface: #422006;
+  --text-primary: #422006;
+  --text-secondary: #78350f;
+  --text-muted: #92400e;
+
+  --neutral-50: #fffbeb;
+  --neutral-100: #fef3c7;
+  --neutral-200: #fde68a;
+  --neutral-400: #fbbf24;
+  --neutral-600: #d97706;
+  --neutral-800: #92400e;
+  --neutral-900: #451a03;
+
+  --border-muted: rgba(120, 53, 15, 0.35);
+  --border-accent: rgba(255, 255, 255, 0.18);
+  --focus-ring: rgba(180, 83, 9, 0.85);
+  --shadow-elevated: rgba(66, 32, 6, 0.16);
+
+  --priority-high: rgba(255, 0, 0, 0.47);
+  --priority-medium: rgba(255, 166, 0, 0.45);
+  --priority-low: rgba(0, 128, 0, 0.47);
+  --priority-done: rgba(180, 83, 9, 0.55);
+  --success-text: #0f5132;
+  --success-bg: #d1e7dd;
+  --success-border: #badbcc;
+  --danger-text: #842029;
+  --danger-bg: #f8d7da;
+  --danger-border: #f5c2c7;
+}
+
+html[data-theme-palette="yellow"] body.dark-mode {
+  --primary-purple: #fbbf24;
+  --primary-purple-hover: #f59e0b;
+  --primary-purple-deep: #78350f;
+  --secondary-purple: #fcd34d;
+  --accent-purple: #fde68a;
+  --accent-purple-soft: #92400e;
+
+  --surface-white: #fef3c7;
+  --surface-white-muted: #1c1917;
+  --surface-glass: rgba(69, 26, 3, 0.45);
+  --surface-card: rgba(28, 25, 23, 0.92);
+  --bg-page-start: #1c1917;
+  --bg-page-end: #451a03;
+  --bg-overlay: rgba(1, 1, 1, 0.85);
+
+  --text-on-primary: #1c1917;
+  --text-on-surface: #fef3c7;
+  --text-primary: #fffbeb;
+  --text-secondary: #fde68a;
+  --text-muted: #fbbf24;
+
+  --neutral-50: #292524;
+  --neutral-100: #44403c;
+  --neutral-200: #78350f;
+  --neutral-400: #b45309;
+  --neutral-600: #fbbf24;
+  --neutral-800: #fef3c7;
+  --neutral-900: #fffbeb;
+
+  --border-muted: rgba(251, 191, 36, 0.55);
+  --border-accent: rgba(253, 230, 138, 0.65);
+  --focus-ring: rgba(251, 191, 36, 0.85);
+  --shadow-elevated: rgba(0, 0, 0, 0.45);
+
+  --priority-high: rgba(255, 82, 82, 0.74);
+  --priority-medium: rgba(255, 167, 38, 0.87);
+  --priority-low: rgba(0, 189, 0, 0.8);
+  --priority-done: rgba(251, 191, 36, 0.9);
   --success-text: #a3d9b1;
   --success-bg: #1b4332;
   --success-border: #2d6a4f;

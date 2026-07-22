@@ -19,6 +19,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="theme-tokens.css">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply stored palette/mode before paint to avoid theme flash (WO-02).
+    (function () {
+      try {
+        var palette = localStorage.getItem("theme-palette");
+        if (palette === "yellow" || palette === "purple-white" || palette === "default") {
+          document.documentElement.setAttribute("data-theme-palette", palette);
+        }
+        if (localStorage.getItem("dark-mode") === "enabled") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
 
   <title>To-Do List</title>
 
@@ -85,9 +99,10 @@
         <select id="themePaletteSelect" class="settings-field__select inputcss">
           <option value="default">Default</option>
           <option value="purple-white">Purple/White</option>
+          <option value="yellow">Yellow</option>
         </select>
       </label>
-      <p class="settings-section__hint">Changes apply immediately.</p>
+      <p class="settings-section__hint">Changes apply immediately and are saved for your next visit.</p>
     </section>
   </aside>
   <div id="settingsBackdrop" class="settings-backdrop" hidden></div>
